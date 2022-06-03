@@ -1,0 +1,29 @@
+{
+  "name": "Сахар для саппорта",
+  "description": "Косметические изменения для комфортной работы в чатах",
+  "version": "1.0",
+  "background": {
+    "service_worker": "/scripts/background.js"
+  },
+  "permissions": [
+    "activeTab",
+    "tabs",
+    "scripting"
+  ],
+  "action": {
+    "default_popup" : "../popup/popup.html"
+  },
+  "content_scripts" : [
+    {
+      "matches": ["https://secure.usedesk.ru/chat/*"], 
+      "css":["/css/usedesk.css"],
+      "js": ["/scripts/script.js"]
+    },
+    {
+      "matches": ["http://crm.spb.play.dc/users/*"], 
+      "css":["/css/crm.css"],
+      "js": ["/scripts/crm.js"]
+    }
+  ],
+  "manifest_version": 3
+}

@@ -1,0 +1,187 @@
+                 /* Темная тема */
+/* ------------------ Сообщения ------------------ */
+
+.dark .messages-group__messages,
+.dark .chat-message__name-of-responder {
+    color: #f0f0f0 !important;
+}
+
+    /* -- Комментари и Сервисные -- */
+
+.dark .message-group-item__private {
+    background-color: #3d2746 !important; 
+}
+
+    /* -- Операторские -- */    
+
+.dark .message_group__operator .messages-group__message:not(.message-group-item__private) {
+    background-color: #3e6284 !important;
+}
+
+
+    /* -- Клиентские -- */
+
+.dark .messages-group__message:not(.message-group-item__private) {
+    background-color: #222e3a !important;
+}
+
+    /* -- Ссылки -- */
+
+.dark .messages-group__messages a {
+    color: #c7c7c7 !important;
+}
+
+.dark .messages-group__messages a:hover {
+    text-decoration: underline;
+    color: #fff !important;
+}
+
+    /* -- Правый сайдбар -- */
+
+.dark #right_resize_container > div.panel.panel-primary.chat__client > div.panel-body.form-horizontal.browser-panel {
+    background-color: #3e6284;
+    color: #f0f0f0;
+}
+
+                  /* Светлая тема */
+/* ------------------ Сообщения ------------------ */
+
+.messages-group__messages,
+.chat-message__name-of-responder {
+    color: #000 !important;
+}
+
+    /* -- Комментари и Сервисные -- */
+
+.message-group-item__private {
+    background-color: #68cd95 !important;
+}
+
+    /* -- Операторские -- */
+
+.message_group__operator .messages-group__message:not(.message-group-item__private) {
+    background-color: #ebe9d9 !important;
+}
+
+    /* -- Клиентские -- */
+
+.messages-group__message:not(.message-group-item__private) {
+    background-color: #d3d0d0 !important;
+}
+
+    /* -- Ссылки -- */
+
+.messages-group__messages a {
+    color: #000 !important;
+}
+
+.messages-group__messages a:hover {
+    color: #000 !important;
+    text-decoration: underline;
+}
+
+    /* -- Правый сайдбар -- */
+
+#right_resize_container > div.panel.panel-primary.chat__client > div.panel-body.form-horizontal.browser-panel {
+    background-color: #68cd95;
+    color: #000;
+}
+
+/*  =============================================  */
+
+.messages-group__messages {
+    margin: 0px 15px !important;
+}
+
+.chat-custom-buttons-block a {
+    color: #f0f0f0 !important;
+}
+.chat-custom-buttons-block a:hover {
+    color: #f0f0f0 !important;
+}
+
+    /* -- Правый сайдбар -- */
+
+.chat-message__date,
+.chat-message__name-of-responder,
+.message-group-item__private {
+    font-style: italic;
+}
+
+#id__chat__actions-wrapper > div:nth-child(2) {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-rounded,
+.sidebar-menu,
+.message-group__avatar,
+#uw-main-button,
+.chat-messages__date-wrapper,
+.mail-sidebar-row .hidden-xs .chat__checkbox-wrapper .ta-c {
+    display: none !important;
+}
+
+body > div.page-container.sidebar-collapsed > div.main-content.main-content_chat,
+body > div.page-container.sidebar-collapsed > div.main-content.main-content_chat > div.chat_layout > div.chat-visible.chat_page_container > div > div.right_column > div.chat-panel.pd-0 > div.main_section > div > section > div.row.chat_container-row > div.new_message_head {
+    padding: 10px;
+}
+
+.profile-env section.profile-feed .profile-post-form .form-options .post-type
+{
+    margin-left: 7px !important;
+}
+
+.profile-env section.profile-feed .profile-post-form .form-options {
+    padding: 3px !important;
+}
+
+#m-tickets,
+#m-chat {
+    margin: 0 20px;
+}
+#m-chat > a > i {
+    margin-top: 4px;
+    font-size: 16px;
+}
+#m-tickets > a > i {
+    font-size: 18px;
+}
+#m-chat > a > i,
+#m-tickets > a > i {
+    align-items: center;
+}
+.red-icon {
+    color: #999 !important;
+}
+.green-icon {
+    color: #4ace1e !important;
+}
+
+#right_resize_container > div.panel.panel-primary.chat__client > div:nth-child(1) > div.text-center {
+    text-align: left;
+}
+h3.client-h3 {
+    white-space: normal;
+}
+
+.form-horizontal {
+    margin-top: 20px;
+}
+
+
+
+/* --------------Кнопка "В ожидании"-------------- */
+
+.btn.btn-green--await {
+    background-color: #3e6284;
+    color: #e8e6e3;
+    margin: 5px 6px;
+    padding: 7px 12px;
+}
+.btn.btn-green--await:hover {
+    background-color: #324f69;
+    color: #e8e6e3 !important;
+}
+
+/*  =============================================  */

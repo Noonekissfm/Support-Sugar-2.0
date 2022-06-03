@@ -1,0 +1,88 @@
+.delete-button {
+    display: flex;
+    padding: 6px 8px 3px 9px;
+    margin-right: 43%;
+
+    border: 1px solid #f90000;
+    border-radius: 3px;
+    cursor: pointer;
+    user-select: none;
+    
+
+    text-transform: uppercase;
+    color: #f90000;
+    letter-spacing: 1.44px;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: "Metropolis","Avenir Next","Helvetica Neue",Arial,sans-serif;
+
+    /* transition: background-color .2s linear; */
+}
+
+.delete-button:hover {
+    background-color: #630000;
+}
+
+.modal-title {
+    display: none;
+}
+
+.select select:active, .select select:hover {
+    border-color: rgba(58, 62, 65, 0.5);
+    background-image: initial;
+    background-color: rgb(43 47 49);
+}
+
+/* .modal-header {
+    min-width: 100%;
+    min-height: 30px;
+    background-color: #630000;
+} */
+
+.my-btn {
+    -webkit-appearance: none!important;
+
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    text-transform: uppercase;
+    background-color: transparent;
+
+    border: 1px solid #0079b8;
+    border-radius: 3px;
+    
+    color: #4bc1ff;
+    font-size: 12px;
+    font-weight: 700;
+    height: 25px;
+
+    padding: 0 .4rem;
+    margin: 3px 3px;
+}
+.my-btn--payment {
+    border: 1px solid #bf3ee0;
+    color: #bf3ee0;
+}
+.my-btn--data {
+    border: 1px solid #5171f1;
+    color: #5171f1;
+}
+
+.my-btn:hover {
+    background-color: rgb(17, 48, 57);
+    color: rgb(126, 211, 255);
+}
+
+.modal-body {
+    max-height: 80vh !important;
+}
+
+.channel-save {
+    font-style: italic;
+    margin-left: 15px !important;
+    font-size: 15px;
+}
+
+#jira_task {
+    width: 60%;
+}
