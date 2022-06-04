@@ -151,6 +151,7 @@ function setupForDelete () {
         for (input of insertedInputs) {
             if (!input.value) {
                 input.value = user[value];
+                dispatchEvent('input', input);
                 return 
             }
         }
@@ -160,13 +161,11 @@ function setupForDelete () {
             document.querySelectorAll('.modal-dialog input')
             .forEach(item => {
                 if (item.value && item.value == user.phone) {
-                    saveAdditionalInfo(item.value)
-                    dispatchEvent('input', item);
+                    saveAdditionalInfo(item.value);
                 }
                 if (item.value && item.value == user.email) {
                     if (item.value.match(/delete/gi) != 'delete') {
-                        saveAdditionalInfo(item.value)
-                        
+                        saveAdditionalInfo(item.value);
                     }
                 }
                 if (user.inputs.gender.value) {
