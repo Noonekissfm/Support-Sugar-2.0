@@ -67,7 +67,7 @@ async function prefAppeal() {
     crtModalBtn('Акции 306', [['my-btn']], [5, 80, 56, 25, '306 ошибка при активации промокода', '--']);
     crtModalBtn('Ош.Воспр.', [['my-btn']], [4, 64, 49, 25, 'Консультация', '--']);
     crtModalBtn('Клиент не ответил', [['my-btn']], [10, 132, 76, 25, 'Клиент не задал вопрос', '--']);
-    crtModalBtn('Пожелание', [['my-btn']], [6, 100, 63, 25, 'Пожелание по добавлению контента', 'WISH']);
+    crtModalBtn('Пожелание', [['my-btn']], [6, 100, 63, 25, '#Пожелание', 'WISH']);
     
     function crtModalBtn(value, [first, second = 'no-extra'], selectorPath) {
 
@@ -124,7 +124,8 @@ function setupForDelete () {
             name: document.querySelector('#updateUser_dispalayName'),
             phone: document.querySelector('#updateUser_phone'),
             email: document.querySelector('#updateUser_mail'),
-            gender: document.querySelector('#updateUser_gender')
+            gender: document.querySelector('#updateUser_gender'),
+            birthDay: document.querySelector("#updateUser_birthday")
         },
         // buttons...
         buttons: {
@@ -149,31 +150,48 @@ function setupForDelete () {
         
         for (input of insertedInputs) {
             if (!input.value) {
-                return input.value = user[value]
+                input.value = user[value];
+                return 
             }
         }
     }
     const clearInputs = () => {
-        document.querySelectorAll('.modal-dialog input')
-        .forEach(item => {
-            if (item.value && item.value == user.phone) {
-                saveAdditionalInfo(item.value)
-            }
-            if (item.value && item.value == user.email) {
-                if (item.value.match(/delete/gi) != 'delete') {
+        try {
+            document.querySelectorAll('.modal-dialog input')
+            .forEach(item => {
+                if (item.value && item.value == user.phone) {
                     saveAdditionalInfo(item.value)
+                    dispatchEvent('input', item);
                 }
-            }
-            if (user.inputs.gender.value) {
-                user.inputs.gender.value = ''; // it's a "select", set to '' if it exists
-            }
-            item.value = ''
-        })
+                if (item.value && item.value == user.email) {
+                    if (item.value.match(/delete/gi) != 'delete') {
+                        saveAdditionalInfo(item.value)
+                        
+                    }
+                }
+                if (user.inputs.gender.value) {
+                    user.inputs.gender.value = 'Не указан'; // it's a "select", set to '' if it exists
+                    dispatchEvent('change', user.inputs.gender)
+                }
+                if (user.inputs.birthDay.value) {
+                    user.inputs.birthDay.value = '';
+                    dispatchEvent('dateChanged', user.inputs.birthDay)
+                }
+                item.value = '';
+                dispatchEvent('input', item);
+    
+                
+            })
+        } catch(err) {
+            console.log(err);
+        }
     }
     clearInputs()
     
     user.inputs.name.value = `delete${user.ID}`;
     user.inputs.email.value = `delete${user.ID}@okko.ru`;
+    dispatchEvent('input', user.inputs.name);
+    dispatchEvent('input', user.inputs.email);
 }
 
 async function setOption(selectorPath, selector) {
@@ -181,7 +199,7 @@ async function setOption(selectorPath, selector) {
     if(el) {
         el.value = selector;
         if (el.value == selector) {
-            dispatchEvent(el);
+            dispatchEvent('change', el);
             return
         } else {
             setOption(selectorPath, selector);
@@ -193,7 +211,7 @@ async function setChannel() {
     const channel = await getElement('#appeal_channel');
     if (channel) {
         channel.value = localStorage.getItem('appeal_channel');
-        dispatchEvent(channel);
+        dispatchEvent('change', channel);
         channel.addEventListener('change', saveChannel);
     } else {
         setChannel();
@@ -222,9 +240,9 @@ function createElement(tag, className, innerText) {
     return el
 }
 
-function dispatchEvent(element) {
-    const event = new Event('change');
-    element.dispatchEvent(event);
+function dispatchEvent(event, element) {
+    const e = new Event(event);
+    element.dispatchEvent(e);
 }
 
 function setEventOnAppeals() {
