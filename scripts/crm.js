@@ -209,9 +209,11 @@ async function setOption(selectorPath, selector) {
 async function setChannel() {
     const channel = await getElement('#appeal_channel');
     if (channel) {
-        channel.value = localStorage.getItem('appeal_channel');
-        dispatchEvent('change', channel);
-        channel.addEventListener('change', saveChannel);
+        if (!channel.value) {
+            channel.value = localStorage.getItem('appeal_channel');
+            dispatchEvent('change', channel);
+            channel.addEventListener('change', saveChannel);
+        }
     } else {
         setChannel();
     }
