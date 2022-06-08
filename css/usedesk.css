@@ -1,4 +1,4 @@
-                 /* Темная тема */
+                    /* Темная тема */
 /* ------------------ Сообщения ------------------ */
 
 .dark .messages-group__messages,
@@ -43,8 +43,15 @@
     color: #f0f0f0;
 }
 
+        /* Кнопки чата */
+
+.dark .chat-custom-button {
+    background-color: #2297ba !important;
+}
+
                   /* Светлая тема */
 /* ------------------ Сообщения ------------------ */
+
 
 .messages-group__messages,
 .chat-message__name-of-responder {
@@ -54,19 +61,22 @@
     /* -- Комментари и Сервисные -- */
 
 .message-group-item__private {
-    background-color: #68cd95 !important;
+    /* background-color: #68cd95 !important; */
+    background-color: #3fb7ab !important;
 }
 
     /* -- Операторские -- */
 
 .message_group__operator .messages-group__message:not(.message-group-item__private) {
-    background-color: #ebe9d9 !important;
+    /* background-color: #ebe9d9 !important; */
+    background-color: #92ceb2 !important;
 }
 
     /* -- Клиентские -- */
 
 .messages-group__message:not(.message-group-item__private) {
-    background-color: #d3d0d0 !important;
+    /* background-color: #d3d0d0 !important; */
+    background-color: #dcead9 !important;
 }
 
     /* -- Ссылки -- */
@@ -83,8 +93,13 @@
     /* -- Правый сайдбар -- */
 
 #right_resize_container > div.panel.panel-primary.chat__client > div.panel-body.form-horizontal.browser-panel {
-    background-color: #68cd95;
+    /* background-color: #68cd95; */
+    background-color: #3fb7ab;
     color: #000;
+}
+
+.chat-custom-button {
+    background-color: #3fb7ab !important;
 }
 
 /*  =============================================  */

@@ -29,7 +29,7 @@ const runSetup = async () => {
     
     if (selector) {
         selector.addEventListener('click', prefAppeal);
-        return
+        return 
     }
 };
 
