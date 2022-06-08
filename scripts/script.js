@@ -1,10 +1,6 @@
 window.setTimeout(addElements, 1);
 window.addEventListener('load', checkTheme)
 
-setTimeout(() => { 
-    document.querySelector("#left_resize_container > div.mail-sidebar.chat__controls > div.member_list.panel-group.joined.chat__list.u_member_list > div:nth-child(1) > div.panel-heading > h4 > a").click();
-}, 700);
-
 function checkTheme() {
     const theme = localStorage.getItem('usdk-theme'),
     bodyClassList = document.querySelector('body').classList;
