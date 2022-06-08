@@ -98,10 +98,11 @@ async function createDeleteButton() {
 }
 
 const appealsButton = () => {
-    const el = document.querySelectorAll('a')
+    const el = document.querySelectorAll('[id^="clr-tab-link"]');
 
     for (item of el) {
         if (item.innerText === 'Обращения')
+        console.log(item)
         return item
     }
 }
