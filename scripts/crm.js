@@ -1,3 +1,7 @@
+const cssClasses = {
+    TEXT_COMMENT: 'body > crm-app > div > clr-main-container > crm-app-header > clr-header > div.header-actions > a.nav-link.nav-text.add-comment'
+}
+
 const getElement = (selector) => new Promise ((resolve, reject) => {
     let count = 0;
     const timer = setInterval(() => {
@@ -15,7 +19,7 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
 });
 
 const generalAppeal = async () => {
-    const generalAppeal = await getElement('body > crm-app > div > clr-main-container > crm-app-header > clr-header > div.header-actions > a.nav-link.nav-text.add-comment');
+    const generalAppeal = await getElement(cssClasses.TEXT_COMMENT);
     generalAppeal.addEventListener('click', prefAppeal);
 }
 
