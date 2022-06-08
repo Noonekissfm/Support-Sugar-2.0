@@ -24,10 +24,12 @@ const generalAppeal = async () => {
 }
 
 const runSetup = async () => {
+    generalAppeal();
     const selector = await getElement('.ng-star-inserted > button');
-    generalAppeal()
+    
     if (selector) {
-        return setup()
+        selector.addEventListener('click', prefAppeal);
+        return
     }
 };
 
