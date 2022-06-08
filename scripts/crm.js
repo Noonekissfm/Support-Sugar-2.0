@@ -9,7 +9,7 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
         const el = document.querySelector(selector);
         if (el) {
             clearInterval(timer);
-            resolve(el);
+            return resolve(el);
         }
         if (count == 20000) {
             clearInterval(timer);
@@ -22,18 +22,6 @@ const generalAppeal = async () => {
     const generalAppeal = await getElement(cssClasses.TEXT_COMMENT);
     generalAppeal.addEventListener('click', prefAppeal);
 }
-
-const runSetup = async () => {
-    generalAppeal();
-    const selector = await getElement('.ng-star-inserted > button');
-    
-    if (selector) {
-        selector.addEventListener('click', prefAppeal);
-        return 
-    }
-};
-
-setInterval(runSetup, 500);
 
 async function prefAppeal() {
     const header = await getElement('div.modal-header');
@@ -102,23 +90,37 @@ async function fillAppeal(selectorPath) {
         console.log(err)
     }
 }
+async function createDeleteButton() {
+    const element = await getElement('.modal-content-wrapper .modal-footer');
+    const btn = createElement('div', 'delete-button', 'Удалить');
+    btn.addEventListener('click', setupForDelete);
+    element.prepend(btn);
+}
 
-const setup = async () => {
-    const button = document.querySelectorAll('.ng-star-inserted button');
-    const appeals = await getElement("#clr-tab-link-1");
-    
-    button[0].onclick = prefAppeal;
-    appeals.onclick = setEventOnAppeals;
-    button[1].onclick = createDeleteButton;
-    
-    
-    async function createDeleteButton() {
-        const element = await getElement('.modal-content-wrapper .modal-footer');
-        const btn = createElement('div', 'delete-button', 'Удалить');
-        btn.addEventListener('click', setupForDelete);
-        element.prepend(btn);
+const appealsButton = () => {
+    const el = document.querySelectorAll('a')
+
+    for (item of el) {
+        if (item.innerText === 'Обращения')
+        return item
     }
 }
+
+const setup = async () => {
+    try {
+        const button = document.querySelectorAll('.ng-star-inserted button');
+
+        button[0].onclick = prefAppeal;
+        button[1].onclick = createDeleteButton;
+
+        appealsButton().addEventListener('click', setEventOnAppeals);
+        
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+
 
 function setupForDelete () {
     const user = {
@@ -262,3 +264,15 @@ function setEventOnAppeals() {
         });
     }, 700);
 }
+
+const runSetup = async () => {
+    generalAppeal();
+    const selector = await getElement('.ng-star-inserted > button');
+    if (selector) {
+        // selector.addEventListener('click', prefAppeal);
+        setup();
+        return 
+    }
+};
+
+setInterval(runSetup, 500);

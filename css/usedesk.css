@@ -28,12 +28,12 @@
     /* -- Ссылки -- */
 
 .dark .messages-group__messages a {
-    color: #c7c7c7 !important;
+    color: #ffffff !important;
 }
 
 .dark .messages-group__messages a:hover {
     text-decoration: underline;
-    color: #fff !important;
+    color: #ffffffd0 !important;
 }
 
     /* -- Правый сайдбар -- */
@@ -109,10 +109,10 @@
 }
 
 .chat-custom-buttons-block a {
-    color: #f0f0f0 !important;
+    color: #ffffff !important;
 }
 .chat-custom-buttons-block a:hover {
-    color: #f0f0f0 !important;
+    color: #ffffffd0 !important;
 }
 
     /* -- Правый сайдбар -- */

@@ -86,3 +86,10 @@
 #jira_task {
     width: 60%;
 }
+
+select {
+    background-color: #181a1b !important;
+}
+option {
+    background-color: #2d444f !important;
+}
