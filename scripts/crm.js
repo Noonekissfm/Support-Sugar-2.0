@@ -13,7 +13,7 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
         }
         if (count == 20000) {
             clearInterval(timer);
-            reject('Timeout...'); 
+            return 
         }
     }, 10);
 });
