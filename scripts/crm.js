@@ -55,6 +55,7 @@ async function prefAppeal() {
     crtModalBtn('Неж.Списание', [['my-btn'], ['my-btn--payment']], [2, 44, 25, 25, 'Консультация по списанию', '--']);
     crtModalBtn('Отмена.АП', [['my-btn'], ['my-btn--payment']], [7, 118, 68, 25, 'Отмена автопродления', '--']);
     crtModalBtn('Ош.При оплате с БК', [['my-btn'], ['my-btn--payment']], [3, 53, 27, 25, 'Смена ПС, Отвязка БК, Отмена транзации, Консультация', '--']);
+    crtModalBtn('Опл.Спасибо', [['my-btn'], ['my-btn--payment']], [3, 49, 27, 25, 'Консультация', 'SBER']);
     crtModalBtn('Изм.ПД', [['my-btn'], ['my-btn--data']], [1, 12, 4, 25, 'Изменение данных', '--']);
     crtModalBtn('Откл.Уст.', [['my-btn'], ['my-btn--data']], [1, 10, 10, 25, 'Отключение устройств', '--']);
     crtModalBtn('Удаление', [['my-btn'], ['my-btn--data']], [1, 14, 7, 25, 'Удаление', '--']);
@@ -63,6 +64,7 @@ async function prefAppeal() {
     crtModalBtn('Ош.Воспр.', [['my-btn']], [4, 64, 49, 25, 'Консультация', '--']);
     crtModalBtn('Клиент не ответил', [['my-btn']], [10, 132, 76, 25, 'Клиент не задал вопрос', '--']);
     crtModalBtn('Пожелание', [['my-btn']], [6, 100, 63, 25, '#Пожелание', 'WISH']);
+    // crtModalBtn('Авария', [['my-btn'], ['my-btn--accident']], [6, 100, 63, 25, '#ХэшТэгАварии', 'ACCIDENT']);
     
     function crtModalBtn(value, [first, second = 'no-extra'], selectorPath) {
 

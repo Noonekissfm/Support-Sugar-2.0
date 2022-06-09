@@ -68,6 +68,13 @@
     color: #5171f1;
 }
 
+.my-btn--accident {
+    border: 1px solid #f15151;
+    color: #f15151;
+    float: right;
+    margin-right: 22px;
+}
+
 .my-btn:hover {
     background-color: rgb(17, 48, 57);
     color: rgb(126, 211, 255);
