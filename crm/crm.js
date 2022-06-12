@@ -11,7 +11,7 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
             clearInterval(timer);
             return resolve(el);
         }
-        if (count == 20000) {
+        if (count == 1000) {
             clearInterval(timer);
             return 
         }
@@ -51,20 +51,20 @@ async function prefAppeal() {
     }
 
 
-    crtModalBtn('Возвр.БК', [['my-btn'], ['my-btn--payment']], [2, 44, 16, 25, 'ПЕРВЫЙ ВОЗВРАТ, ПОЛЬЗОВАТЕЛЯ ПРЕДУПРЕДИЛИ', '--']);
-    crtModalBtn('Неж.Списание', [['my-btn'], ['my-btn--payment']], [2, 44, 25, 25, 'Консультация по списанию', '--']);
-    crtModalBtn('Отмена.АП', [['my-btn'], ['my-btn--payment']], [7, 118, 68, 25, 'Отмена автопродления', '--']);
-    crtModalBtn('Ош.При оплате с БК', [['my-btn'], ['my-btn--payment']], [3, 53, 27, 25, 'Смена ПС, Отвязка БК, Отмена транзации, Консультация', '--']);
-    crtModalBtn('Опл.Спасибо', [['my-btn'], ['my-btn--payment']], [3, 49, 27, 25, 'Консультация', 'SBER']);
-    crtModalBtn('Изм.ПД', [['my-btn'], ['my-btn--data']], [1, 12, 4, 25, 'Изменение данных', '--']);
-    crtModalBtn('Откл.Уст.', [['my-btn'], ['my-btn--data']], [1, 10, 10, 25, 'Отключение устройств', '--']);
-    crtModalBtn('Удаление', [['my-btn'], ['my-btn--data']], [1, 14, 7, 25, 'Удаление', '--']);
-    crtModalBtn('Мерж', [['my-btn'], ['my-btn--data']], [1, 13, 9, 25, 'Мерж профилей', '--']);
-    crtModalBtn('Акции 306', [['my-btn']], [5, 80, 56, 25, '306 ошибка при активации промокода', '--']);
-    crtModalBtn('Ош.Воспр.', [['my-btn']], [4, 64, 49, 25, 'Консультация', '--']);
-    crtModalBtn('Клиент не ответил', [['my-btn']], [10, 132, 76, 25, 'Клиент не задал вопрос', '--']);
-    crtModalBtn('Пожелание', [['my-btn']], [6, 100, 63, 25, '#Пожелание', 'WISH']);
-    // crtModalBtn('Авария', [['my-btn'], ['my-btn--accident']], [6, 100, 63, 25, '#ХэшТэгАварии', 'ACCIDENT']);
+    crtModalBtn('Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 44, 16, 25, 'ПЕРВЫЙ ВОЗВРАТ, ПОЛЬЗОВАТЕЛЯ ПРЕДУПРЕДИЛИ', '--']);
+    crtModalBtn('Неж.Списание', ['my-btn', 'my-btn--payment'], [2, 44, 25, 25, 'Консультация по списанию', '--']);
+    crtModalBtn('Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 118, 68, 25, '', '--']);
+    crtModalBtn('Ош.При оплате с БК', ['my-btn', 'my-btn--payment'], [3, 53, 27, 25, '', '--']);
+    crtModalBtn('Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 49, 27, 25, '', 'SBER']);
+    crtModalBtn('Изм.ПД', ['my-btn', 'my-btn--data'], [1, 12, 4, 25, '', '--']);
+    crtModalBtn('Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 10, 10, 25, '', '--']);
+    crtModalBtn('Удаление', ['my-btn', 'my-btn--data'], [1, 14, 7, 25, 'Удаление', '--']);
+    crtModalBtn('Мерж', ['my-btn', 'my-btn--data'], [1, 13, 9, 25, 'Мерж профилей', '--']);
+    crtModalBtn('Акции 306', ['my-btn'], [5, 80, 56, 25, '', '--']);
+    crtModalBtn('Ош.Воспр.', ['my-btn'], [4, 64, 49, 25, '', '--']);
+    crtModalBtn('Клиент не ответил', ['my-btn'], [10, 132, 76, 25, '', '--']);
+    crtModalBtn('Пожелание', ['my-btn'], [6, 100, 63, 25, '#Пожелание', 'WISH']);
+    // crtModalBtn('Авария', ['my-btn', 'my-btn--accident'], [6, 100, 63, 25, '#ХэшТэгАварии', 'ACCIDENT']);
     
     function crtModalBtn(value, [first, second = 'no-extra'], selectorPath) {
 
@@ -272,7 +272,6 @@ const runSetup = async () => {
     generalAppeal();
     const selector = await getElement('.ng-star-inserted > button');
     if (selector) {
-        // selector.addEventListener('click', prefAppeal);
         setup();
         return 
     }
