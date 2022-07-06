@@ -34,8 +34,8 @@ async function prefAppeal() {
     run();
      
     async function actualIssue() {
-        const actualIssue = await getElement('label[for="is_actual_issue_0"]');
-        actualIssue.parentNode.remove();
+        const actualIssue = await getElement('#is_actual_issue_0');
+        actualIssue.checked = true;
 
         const jiraTask = await getElement('label[for="jira_task"]');
         const inputText = await getElement('#jira_task');
