@@ -1,6 +1,11 @@
 window.setTimeout(addElements, 1);
 window.addEventListener('load', checkTheme)
 
+// window.addEventListener('hashchange', ()=> {
+//     //const UID = document.querySelector("#right_resize_container > div.panel.panel-primary.chat__client > div > div.text-center > h3 > a:nth-child(1)")
+//     console.log('changed');
+// })
+
 function checkTheme() {
     const theme = localStorage.getItem('usdk-theme'),
     bodyClassList = document.querySelector('body').classList;
