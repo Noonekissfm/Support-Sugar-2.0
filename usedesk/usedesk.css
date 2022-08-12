@@ -200,3 +200,34 @@ h3.client-h3 {
 }
 
 /*  =============================================  */
+
+.timerButton {
+    -webkit-appearance: none !important;
+
+    cursor: pointer;
+    display: inline-block;
+    white-space: nowrap;
+    text-transform: uppercase;
+    background-color: transparent;
+
+    border: 2px solid #0079b8;
+    border-radius: 3px;
+
+    color: #4bc1ff;
+    font-size: 12px;
+    font-weight: 700;
+    min-height: 25px;
+    min-width: 25px;
+
+    padding: 0 .4rem;
+    margin: 3px 3px;
+}
+
+.timerButton_active {
+    color: #bf3ee0;
+    border-color: #bf3ee0;
+}
+
+.timerPanel {
+    margin-top: 10px;
+}

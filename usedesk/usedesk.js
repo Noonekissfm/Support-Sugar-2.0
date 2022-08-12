@@ -1,4 +1,5 @@
 window.setTimeout(addElements, 1);
+window.setTimeout(createTimerPanel, 1);
 window.addEventListener('load', checkTheme)
 
 // window.addEventListener('hashchange', ()=> {
@@ -52,5 +53,45 @@ function addElements() {
         const innerText = 'В ожидании';
         rightButton.insertAdjacentHTML('beforebegin', `<button class="btn btn-green--await" value="default" onclick="return closeDialog(this)" data-status-id="6" type="submit">${innerText}</button>`);
     }
+}
+
+
+
+function createTimerPanel() {
+    const switcher = document.querySelector('.chat-status')
+    const place = document.querySelector("#id__chat__actions-wrapper > div.mail-sidebar-row.hidden-xs.chat__checkbox-wrapper.ta-c.display-none")
+
+    const panel = document.createElement('div');
+    panel.className = 'timerPanel';
+    place.appendChild(panel)
+
+    function createTimerButton(id, innerText, time) {
+        const button = document.createElement('button');
+        button.className = 'timerButton';
+        button.id = id;
+        button.innerText = innerText;
+        button.addEventListener('click', (e)=>{
+            switchStatus(time);
+            e.target.classList.add('timerButton_active');
+        });
+        panel.appendChild(button);
+    }
+
+    createTimerButton('timer_5', 'WC', 5)
+    createTimerButton('timer_15', '15', 15)
+    createTimerButton('timer_45', '45', 45)
+
+
+    function switchStatus(time) {
+        switcher.click();
+        console.log(`Таймер установлен на ${time} минуту.`);
+
+        setTimeout(()=>{
+            switcher.click();
+            document.querySelector('.timerButton_active').classList.remove('timerButton_active');
+            console.log(`Поставлен онлайн.`)
+        }, time*60000)
+    }
+   
 }
 
