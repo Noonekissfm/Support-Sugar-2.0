@@ -54,8 +54,9 @@ function addElements() {
     }
     function createAwaitButton() {
         const rightButton = document.querySelector('.btn-group.btn-reply.close-dialog-bar');
+
         const innerText = 'В ожидании';
-        rightButton.insertAdjacentHTML('beforebegin', `<button class="btn btn-green--await" value="default" onclick="return closeDialog(this)" data-status-id="6" type="submit">${innerText}</button>`);
+        rightButton.insertAdjacentHTML('beforebegin', `<button class="btn btn-green--await" id="awaitButton" value="default" onclick="return closeDialog(this)" data-status-id="6" type="submit">${innerText}</button>`);
     }
 }
 
@@ -119,6 +120,15 @@ function hotKeys(key) {
 
     if (key.code === 'Space' && key.shiftKey === true) {
         document.querySelector("i[class='fa-unlock']").click();
+    }
+    if (key.code === 'Digit1' && key.altKey === true) {
+        document.querySelector('#awaitButton').click();
+    }
+    if (key.code === 'Digit2' && key.altKey === true) {
+        const names = document.querySelectorAll('.chat-message__name-of-responder')
+        for (item of names) {
+            item.classList.toggle('blur');
+        }
     }
 }
 

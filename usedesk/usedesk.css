@@ -231,3 +231,7 @@ h3.client-h3 {
 .timerPanel {
     margin-top: 10px;
 }
+
+.blur {
+    filter: blur(3px);
+}
