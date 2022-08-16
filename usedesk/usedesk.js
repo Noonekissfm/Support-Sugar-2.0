@@ -110,7 +110,7 @@ function hotKeys(key) {
 
     if (key.code === 'F4') {
         const link = String(window.location.href)
-        navigator.clipboard.writeText(`${link}`);
+        navigator.clipboard.writeText(`${link}`); //почему-то не вставляется ссылка в новой вкладке
 
         const name = String(document.querySelector('h3[class="client-h3"]').innerText).trim()
         window.open(`http://crm.spb.play.dc/users/${name}/info`);
