@@ -5,6 +5,7 @@ window.addEventListener('keydown', (e) => {
 
     hotKeys(e)
 });
+window.setTimeout(createToggler, 10);
 
 // window.addEventListener('hashchange', ()=> {
 //     //const UID = document.querySelector("#right_resize_container > div.panel.panel-primary.chat__client > div > div.text-center > h3 > a:nth-child(1)")
@@ -130,5 +131,20 @@ function hotKeys(key) {
             item.classList.toggle('blur');
         }
     }
+}
+
+function createToggler() {
+    const menu = document.querySelector('.sidebar-menu');
+
+    const toggler = document.createElement('button');
+    toggler.className = 'toggler';
+
+    menu.append(toggler);
+    toggler.addEventListener('click', () => {
+        menu.classList.toggle('toggle-menu');
+        setTimeout(() => {
+            menu.classList.toggle('toggle-menu');
+        }, 5000)
+    })
 }
 
