@@ -1,16 +1,8 @@
-window.setTimeout(addElements, 1);
 window.setTimeout(createTimerPanel, 1);
 window.addEventListener('load', checkTheme)
 window.addEventListener('keydown', (e) => {
-
     hotKeys(e)
 });
-window.setTimeout(createToggler, 10);
-
-// window.addEventListener('hashchange', ()=> {
-//     //const UID = document.querySelector("#right_resize_container > div.panel.panel-primary.chat__client > div > div.text-center > h3 > a:nth-child(1)")
-//     console.log('changed');
-// })
 
 function checkTheme() {
     const theme = localStorage.getItem('usdk-theme'),
@@ -26,40 +18,43 @@ function checkTheme() {
     }
 }
 
-function addElements() {
-    let rootBarBtn = document.querySelector(".btn.btn-success").parentNode;
-    while (rootBarBtn.hasChildNodes()) {
-        rootBarBtn.removeChild(rootBarBtn.lastChild)
-    }
-    /* ---- chat-button ---- */
-    createButton('topmenu root-level', 'm-chat', 'https://secure.usedesk.ru/chat', 'fas fa-comment-dots red-icon');
-    /* ---- ticket-button ---- */
-    createButton('root-level', 'm-tickets', 'https://secure.usedesk.ru/tickets', 'entypo-mail red-icon');
-    /* ---- Button-in-await ---- */
-    createAwaitButton();
+const getElement = async (path) => {
+    return new Promise((resolve, reject) => {
+        const count = 0;
 
-    function createButton(div_class, div_id, div_link, div_icoClass) {
-        //create div...
-        const elem = document.createElement('div');
-        elem.className = div_class;
-        elem.id = div_id;
-        rootBarBtn.appendChild(elem);
-        //add link to div...
-        const elem_link = document.createElement('a');
-        elem_link.href = div_link;
-        elem.appendChild(elem_link);
-        //add ico to div...
-        const elem_ico = document.createElement('i');
-        elem_ico.className = div_icoClass;
-        elem_link.appendChild(elem_ico);
-    }
-    function createAwaitButton() {
-        const rightButton = document.querySelector('.btn-group.btn-reply.close-dialog-bar');
+        const intervalId = setInterval(() => {
+            if (count === 50) {
+                clearInterval(intervalId)
+                return reject(new Error('getElement timeOut...'))
+            }
 
-        const innerText = 'В ожидании';
-        rightButton.insertAdjacentHTML('beforebegin', `<button class="btn btn-green--await" id="awaitButton" value="default" onclick="return closeDialog(this)" data-status-id="6" type="submit">${innerText}</button>`);
-    }
+            const element = document.querySelector(path)
+
+            if (!element) {
+                count++
+                return
+            }
+            clearInterval(intervalId)
+            return resolve(element)
+
+        }, 50)
+    })
 }
+
+const addElements = async () => {
+    const createNewChatBtn = await getElement('a[data-target="#create-chat-modal"]')
+    createNewChatBtn.remove();
+}
+
+addElements()
+
+const createAwaitButton = async () => {
+    const rightButton = await getElement('.btn-group.btn-reply.close-dialog-bar');
+
+    const innerText = 'В ожидании';
+    rightButton.insertAdjacentHTML('beforebegin', `<button class="btn btn-green--await" id="awaitButton" value="default" onclick="return closeDialog(this)" data-status-id="6" type="submit">${innerText}</button>`);
+}
+createAwaitButton();
 
 function createTimerPanel() {
     const switcher = document.querySelector('.chat-status')
@@ -88,12 +83,10 @@ function createTimerPanel() {
 
     function switchStatus(time) {
         switcher.click();
-        console.log(`Таймер установлен на ${time} минуту.`);
 
         setTimeout(() => {
             switcher.click();
             document.querySelector('.timerButton_active').classList.remove('timerButton_active');
-            console.log(`Поставлен онлайн.`)
         }, time * 60000)
     }
 
@@ -111,16 +104,14 @@ const getModalSiteInputAsync = async () => {
 
             if (isLimitExceeded) {
                 clearInterval(timerId);
-                reject(new Error('Limit exceeded - getModalSiteInputAsunc'));
+                reject(new Error('Limit exceeded - getModalSiteInputAsync'));
             }
 
             const modalIFrame = document.querySelector('.fancybox__iframe');
 
-
             if (!modalIFrame) {
                 return;
             }
-
 
             const input = modalIFrame.contentWindow.document.querySelector('input[name="sites[url][]"]');
 
@@ -128,7 +119,6 @@ const getModalSiteInputAsync = async () => {
                 resolve(input);
                 clearInterval(timerId);
             }
-
             count++;
         }, INTERVAL_MS)
     })
@@ -168,9 +158,6 @@ async function hotKeys(key) {
 
     }
 
-    if (key.code === 'Space' && key.shiftKey === true) {
-        document.querySelector("i[class='fa-unlock']").click();
-    }
     if (key.code === 'Digit1' && key.altKey === true) {
         document.querySelector('#awaitButton').click();
     }
@@ -182,18 +169,39 @@ async function hotKeys(key) {
     }
 }
 
-function createToggler() {
-    const menu = document.querySelector('.sidebar-menu');
+const createToggleButton = async () => {
+    const SECONDS = 10;
+    const sidebarMenu = await getElement('.sidebar-menu');
 
-    const toggler = document.createElement('button');
-    toggler.className = 'toggler';
+    const toggleButton = document.createElement('button');
+    toggleButton.className = 'toggleButton';
 
-    menu.append(toggler);
-    toggler.addEventListener('click', () => {
-        menu.classList.toggle('toggle-menu');
-        setTimeout(() => {
-            menu.classList.toggle('toggle-menu');
-        }, 5000)
+    sidebarMenu.append(toggleButton);
+
+    toggleButton.addEventListener('click', () => {
+        sidebarMenu.classList.toggle('toggle-menu');
+        if (sidebarMenu.classList.contains('toggle-menu')) {
+            const timer = setTimeout(()=>{
+                sidebarMenu.classList.remove('toggle-menu')
+                clearTimeout(timer)
+            }, 1000 * SECONDS)
+        }
+        return
     })
 }
+createToggleButton();
 
+const autoDeployMyChats = async () => {
+    const CHATS = await getElement('.member-my-title');
+
+    const timer = setTimeout(() => {
+        if (CHATS.classList.contains('collapsed')) {
+            clearTimeout(timer);
+            CHATS.click();
+            return
+        }
+        clearTimeout(timer);
+        return
+    }, 2000)
+}
+autoDeployMyChats();

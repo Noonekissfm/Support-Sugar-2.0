@@ -202,16 +202,19 @@ h3.client-h3 {
 .timerButton {
     -webkit-appearance: none !important;
 
+    text-align: center;
+    line-height: 4px;
+
     cursor: pointer;
     display: inline-block;
     white-space: nowrap;
     text-transform: uppercase;
     background-color: transparent;
 
-    border: 2px solid #0079b8;
+    border: 1px solid #737881;
     border-radius: 3px;
 
-    color: #4bc1ff;
+    color: #737881;
     font-size: 12px;
     font-weight: 400;
     min-height: 20px;
@@ -219,11 +222,14 @@ h3.client-h3 {
 
     padding: 0 .4rem;
     margin: 3px 3px;
+
+    transition: all 0.3s ease;
 }
 
 .timerButton_active {
-    color: #bf3ee0;
-    border-color: #bf3ee0;
+    color: #e8e6e3;
+    border-color: #1885b2;
+    background-color: #1885b2;
 }
 
 .timerPanel {
@@ -234,10 +240,10 @@ h3.client-h3 {
     filter: blur(3px);
 }
 
-.toggler {
+.toggleButton {
     width: 10px;
     height: 40px;
-    background-color: transparent;
+    background-color: #262b34;
     position: absolute;
     
     right: -10px;
@@ -249,6 +255,9 @@ h3.client-h3 {
     border: 1px solid;
     /* border-left: none; */
     border-color: #a49d914b;
+    border-bottom-right-radius: 3px;
+    border-top-right-radius: 3px;
+    border-left: none;
 }
 
 
@@ -263,4 +272,8 @@ h3.client-h3 {
 .toggle-menu {
     left: 0;
     position: relative !important;
+}
+
+#timer_15 {
+
 }
