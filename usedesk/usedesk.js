@@ -99,14 +99,63 @@ function createTimerPanel() {
 
 }
 
-function hotKeys(key) {
+const getModalSiteInputAsync = async () => {
+    const INTERVAL_MS = 50;
+    const MAX_TIME_SEC = 10;
+
+    return new Promise((resolve, reject) => {
+        let count = 1;
+
+        const timerId = setInterval(() => {
+            const isLimitExceeded = (INTERVAL_MS * count) / 1000 > MAX_TIME_SEC
+
+            if (isLimitExceeded) {
+                clearInterval(timerId);
+                reject(new Error('Limit exceeded - getModalSiteInputAsunc'));
+            }
+
+            const modalIFrame = document.querySelector('.fancybox__iframe');
+
+
+            if (!modalIFrame) {
+                return;
+            }
+
+
+            const input = modalIFrame.contentWindow.document.querySelector('input[name="sites[url][]"]');
+
+            if (input) {
+                resolve(input);
+                clearInterval(timerId);
+            }
+
+            count++;
+        }, INTERVAL_MS)
+    })
+}
+
+const generateLink = async () => {
+    const name = String(document.querySelector('h3[class="client-h3"]').innerText).trim()
+    return `http://crm.spb.play.dc/users/${name}/info`;
+}
+
+const insertLinkToModalInput = async () => {
+    try {
+        const input = await getModalSiteInputAsync();
+        const link = await generateLink();
+        input.value = link;
+    } catch (error) {
+        console.log(error);
+    }
+}
+
+async function hotKeys(key) {
 
     if (key.code === 'F2') {
-        const name = String(document.querySelector('h3[class="client-h3"]').innerText).trim()
-        navigator.clipboard.writeText(`http://crm.spb.play.dc/users/${name}/info`)
 
         const pencil = document.querySelector("#right_resize_container > div.panel.panel-primary.chat__client > div:nth-child(1) > div.text-center > h3 > a:nth-child(2)");
         pencil.click();
+        insertLinkToModalInput();
 
     }
 
