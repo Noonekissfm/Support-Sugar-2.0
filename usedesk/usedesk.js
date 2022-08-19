@@ -82,7 +82,9 @@ function createTimerPanel() {
 
 
     function switchStatus(time) {
-        switcher.click();
+        if (switcher.hasAttribute('checked')) {
+            switcher.click();
+        }
 
         setTimeout(() => {
             switcher.click();
@@ -190,18 +192,3 @@ const createToggleButton = async () => {
     })
 }
 createToggleButton();
-
-const autoDeployMyChats = async () => {
-    const CHATS = await getElement('.member-my-title');
-
-    const timer = setTimeout(() => {
-        if (CHATS.classList.contains('collapsed')) {
-            clearTimeout(timer);
-            CHATS.click();
-            return
-        }
-        clearTimeout(timer);
-        return
-    }, 2000)
-}
-autoDeployMyChats();
