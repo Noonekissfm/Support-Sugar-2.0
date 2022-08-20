@@ -183,7 +183,7 @@ const createToggleButton = async () => {
     toggleButton.addEventListener('click', () => {
         sidebarMenu.classList.toggle('toggle-menu');
         if (sidebarMenu.classList.contains('toggle-menu')) {
-            const timer = setTimeout(()=>{
+            const timer = setTimeout(() => {
                 sidebarMenu.classList.remove('toggle-menu')
                 clearTimeout(timer)
             }, 1000 * SECONDS)

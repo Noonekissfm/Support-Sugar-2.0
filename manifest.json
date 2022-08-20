@@ -17,6 +17,11 @@
       "js": ["/usedesk/usedesk.js"]
     },
     {
+      "matches": ["https://secure.usedesk.ru/tickets*"], 
+      "css":["/tickets/tickets.css"],
+      "js": ["/tickets/tickets.js"]
+    },
+    {
       "matches": ["http://crm.spb.play.dc/users/*"], 
       "css":["/crm/crm.css"],
       "js": ["/crm/crm.js"]
