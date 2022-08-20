@@ -166,6 +166,7 @@ const showLists = () => {
 showLists();
 
 async function autoUpdate() {
+    const MINUTES = 5;
     console.log(localStorage.getItem('autoUpdate'))
     if (localStorage.getItem('autoUpdate') != 'true') {
         return
@@ -176,7 +177,7 @@ async function autoUpdate() {
 
     setTimeout(() => {
         location.reload();
-    }, 5000)
+    }, 60000 * MINUTES);
 }
 
 autoUpdate()
