@@ -1,8 +1,13 @@
-window.setTimeout(createTimerPanel, 1);
+window.setTimeout(createStatusesBlock, 1);
 window.addEventListener('load', checkTheme)
+window.setTimeout(switchStatus, 1000)
 window.addEventListener('keydown', (e) => {
     hotKeys(e)
 });
+
+
+
+const state = {};
 
 function checkTheme() {
     const theme = localStorage.getItem('usdk-theme'),
@@ -41,57 +46,96 @@ const getElement = async (path) => {
     })
 }
 
-const addElements = async () => {
-    const createNewChatBtn = await getElement('a[data-target="#create-chat-modal"]')
-    createNewChatBtn.remove();
+const createElement = (element, className, id = '', innerText = '') => {
+    const el = document.createElement(element);
+    el.className = className;
+    el.id = id;
+    el.innerText = innerText;
+    return el;
 }
 
-addElements()
+const removeCreateChatButton = async () => {
+    const chatButton = await getElement('a[data-target="#create-chat-modal"]')
+    chatButton.remove();
+}
+
+removeCreateChatButton()
 
 const createAwaitButton = async () => {
     const rightButton = await getElement('.btn-group.btn-reply.close-dialog-bar');
+    const INNER_TEXT = 'В ожидании';
 
-    const innerText = 'В ожидании';
-    rightButton.insertAdjacentHTML('beforebegin', `<button class="btn btn-green--await" id="awaitButton" value="default" onclick="return closeDialog(this)" data-status-id="6" type="submit">${innerText}</button>`);
+    rightButton.insertAdjacentHTML('beforebegin', `<button class="btn btn-green--await" id="awaitButton" value="default" onclick="return closeDialog(this)" data-status-id="6" type="submit">${INNER_TEXT}</button>`);
 }
 createAwaitButton();
 
-function createTimerPanel() {
-    const switcher = document.querySelector('.chat-status')
+function createStatusesBlock() {
     const place = document.querySelector("#id__chat__actions-wrapper > div.mail-sidebar-row.hidden-xs.chat__checkbox-wrapper.ta-c.display-none")
 
-    const panel = document.createElement('div');
-    panel.className = 'timerPanel';
+    function createTimerPanel() {
+        const panel = document.createElement('div');
+        panel.className = 'timerPanel';
+        return panel;
+    }
+
+    const panel = createTimerPanel()
     place.appendChild(panel)
 
-    function createTimerButton(id, innerText, time) {
-        const button = document.createElement('button');
-        button.className = 'timerButton';
-        button.id = id;
-        button.innerText = innerText;
+    function createTimerButton(element, className, id, innerText, time) {
+        const button = createElement(element, className, id, innerText)
         button.addEventListener('click', (e) => {
-            switchStatus(time);
-            e.target.classList.add('timerButton_active');
+            const target = e.target;
+            if (!localStorage.getItem('breakTimer')) {
+                localStorage.setItem('breakTimer', Date.now() + (60000 * time))
+                switchStatus();
+                e.target.classList.add('timerButton_active');
+                localStorage.setItem('activeButtonID', e.target.id)
+                return
+            }
+            clearTimer('breakTimer', target, 'timerButton_active');
+            localStorage.removeItem('breakTimer');
+            localStorage.removeItem('activeButtonID');
         });
         panel.appendChild(button);
     }
 
-    createTimerButton('timer_5', 'WC', 5)
-    createTimerButton('timer_15', '15', 15)
-    createTimerButton('timer_45', '45', 45)
+    createTimerButton('button', 'timerButton', 'timer5', 'WC', 5)
+    createTimerButton('button', 'timerButton', 'timer15', '15', 15)
+    createTimerButton('button', 'timerButton', 'timer45', '45', 45)
+}
 
-
-    function switchStatus(time) {
-        if (switcher.hasAttribute('checked')) {
-            switcher.click();
-        }
-
-        setTimeout(() => {
-            switcher.click();
-            document.querySelector('.timerButton_active').classList.remove('timerButton_active');
-        }, time * 60000)
+function switchStatus() {
+    const breakEnd = localStorage.getItem('breakTimer');
+    if (!breakEnd) {
+        return
     }
 
+    const buttonId = localStorage.getItem('activeButtonID');
+    const switcher = document.querySelector('.chat-status');
+
+    if (buttonId) {
+        document.querySelector(`#${buttonId}`).classList.add('timerButton_active')
+    }
+
+    if (switcher.hasAttribute('checked')) {
+        switcher.click();
+    }
+
+
+
+    state.breakTimer = setInterval(() => {
+        if (Date.now() >= breakEnd) {
+            switcher.click();
+            clearInterval(state.breakTimer)
+            delete state.breakTimer
+            document.querySelector('.timerButton_active').classList.remove('timerButton_active');
+            localStorage.removeItem('breakTimer')
+            localStorage.removeItem('activeButtonID')
+            return
+        }
+
+    }, 1000)
+    return
 }
 
 const getModalSiteInputAsync = async () => {
@@ -171,24 +215,31 @@ async function hotKeys(key) {
     }
 }
 
+const clearTimer = (timerName, el, className) => {
+    clearTimeout(state[timerName]);
+    delete state[timerName];
+    el.classList.remove(className)
+}
+
 const createToggleButton = async () => {
     const SECONDS = 10;
-    const sidebarMenu = await getElement('.sidebar-menu');
+    const SIDEBAR = await getElement('.sidebar-menu');
 
-    const toggleButton = document.createElement('button');
-    toggleButton.className = 'toggleButton';
+    const toggleButton = createElement('button', 'toggleButton')
 
-    sidebarMenu.append(toggleButton);
+    SIDEBAR.append(toggleButton);
 
     toggleButton.addEventListener('click', () => {
-        sidebarMenu.classList.toggle('toggle-menu');
-        if (sidebarMenu.classList.contains('toggle-menu')) {
-            const timer = setTimeout(() => {
-                sidebarMenu.classList.remove('toggle-menu')
-                clearTimeout(timer)
+        if (!SIDEBAR.classList.contains('toggle-menu')) {
+            SIDEBAR.classList.add('toggle-menu');
+            state.toggleTimer = setTimeout(() => {
+                clearTimer('toggleTimer', SIDEBAR, 'toggle-menu')
+                return;
             }, 1000 * SECONDS)
+            return;
         }
-        return
+        clearTimer('toggleTimer', SIDEBAR, 'toggle-menu')
+        return;
     })
 }
 createToggleButton();
