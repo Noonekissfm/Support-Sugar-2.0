@@ -1,4 +1,7 @@
+window.setTimeout(createStatusesBlock, 1);
+window.setTimeout(switchStatus, 1000)
 
+const state = {};
 
 const getElement = async (path) => {
     return new Promise((resolve, reject) => {
@@ -45,45 +48,88 @@ const getElements = async (path) => {
     })
 }
 
-function createTimerPanel() {
-    const switcher = document.querySelector('#online-status')
-    const place = document.querySelector('#online-status')
+const createElement = (element, className, id = '', innerText = '') => {
+    const el = document.createElement(element);
+    el.className = className;
+    el.id = id;
+    el.innerText = innerText;
+    return el;
+}
 
-    const panel = document.createElement('div');
-    panel.className = 'timerPanel';
+const clearTimer = (timerName, el, className) => {
+    clearTimeout(state[timerName]);
+    delete state[timerName];
+    el.classList.remove(className)
+}
+
+function createStatusesBlock() {
+    const place = document.querySelector("#online-status")
+
+    function createTimerPanel() {
+        const panel = document.createElement('div');
+        panel.className = 'timerPanel';
+        return panel;
+    }
+
+    const panel = createTimerPanel()
     place.appendChild(panel)
 
-    function createTimerButton(id, innerText, time) {
-        const button = document.createElement('button');
-        button.className = 'timerButton';
-        button.id = id;
-        button.innerText = innerText;
+    function createTimerButton(element, className, id, innerText, time) {
+        const button = createElement(element, className, id, innerText)
         button.addEventListener('click', (e) => {
-            switchStatus(time);
-            e.target.classList.add('timerButton_active');
+            const target = e.target;
+            if (!localStorage.getItem('breakTimer')) {
+                localStorage.setItem('breakTimer', Date.now() + (60000 * time))
+                switchStatus();
+                e.target.classList.add('timerButton_active');
+                localStorage.setItem('activeButtonID', e.target.id)
+                return
+            }
+            clearTimer('breakTimer', target, 'timerButton_active');
+            localStorage.removeItem('breakTimer');
+            localStorage.removeItem('activeButtonID');
         });
         panel.appendChild(button);
     }
 
-    createTimerButton('timer_5', 'WC', 5)
-    createTimerButton('timer_15', '15', 15)
-    createTimerButton('timer_45', '45', 45)
-
-
-    function switchStatus(time) {
-        if (switcher.hasAttribute('checked')) {
-            switcher.click();
-        }
-
-        setTimeout(() => {
-            switcher.click();
-            document.querySelector('.timerButton_active').classList.remove('timerButton_active');
-        }, time * 60000)
-    }
-
+    createTimerButton('button', 'timerButton', 'timer5', 'WC', 5)
+    createTimerButton('button', 'timerButton', 'timer15', '15', 15)
+    createTimerButton('button', 'timerButton', 'timer45', '45', 45)
 }
 
-createTimerPanel();
+function switchStatus() {
+    const breakEnd = localStorage.getItem('breakTimer');
+    if (!breakEnd) {
+        return
+    }
+
+    const buttonId = localStorage.getItem('activeButtonID');
+    const switcher = document.querySelector('.ticket-online-status');
+
+    if (buttonId) {
+        document.querySelector(`#${buttonId}`).classList.add('timerButton_active')
+    }
+
+    if (switcher.hasAttribute('checked')) {
+        switcher.click();
+    }
+
+
+
+    state.breakTimer = setInterval(() => {
+        if (Date.now() >= breakEnd) {
+            switcher.click();
+            clearInterval(state.breakTimer)
+            delete state.breakTimer
+            document.querySelector('.timerButton_active').classList.remove('timerButton_active');
+            localStorage.removeItem('breakTimer')
+            localStorage.removeItem('activeButtonID')
+            return
+        }
+
+    }, 1000)
+    return
+}
 
 const createToggleButton = async () => {
     const SECONDS = 10;
@@ -138,9 +184,9 @@ const showLists = () => {
     document.querySelector('.navbar-nav').append(button);
 
     button.addEventListener('click', () => {
-        
 
-        if(!flag) {
+
+        if (!flag) {
             const lists = document.querySelectorAll('li[class="dropdown hide"]');
             button.innerText = 'Скрыть';
             flag = true;
@@ -166,8 +212,7 @@ const showLists = () => {
 showLists();
 
 async function autoUpdate() {
-    const MINUTES = 5;
-    console.log(localStorage.getItem('autoUpdate'))
+    const MINUTES = 3;
     if (localStorage.getItem('autoUpdate') != 'true') {
         return
     }
