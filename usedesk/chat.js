@@ -7,7 +7,10 @@ window.addEventListener('keydown', (e) => {
 
 
 
-const state = {};
+
+const state = {
+    chats: [],
+};
 
 function checkTheme() {
     const theme = localStorage.getItem('usdk-theme'),
@@ -243,3 +246,52 @@ const createToggleButton = async () => {
     })
 }
 createToggleButton();
+
+const getChatId = async () => {
+    const chats = document.querySelectorAll("#collapseOne-3 > div > ul > li");
+    state.chatId = [];
+    for (item of chats) {
+        state.chatId.push(item.dataset.chat);
+    }
+    
+}
+
+const getChats = async() => {
+    for (let i = 0; i < state.chatId.length; i++) {
+        fetch(`https://secure.usedesk.ru/v1/chat/getMessagesByChat?chat=${state.chatId[i]}`)
+        .then(data => data.json())
+        .then(resp => state.chats.push(resp));
+    }
+}
+
+const run = async () => {
+    await getChatId();
+    await getChats();
+}
+
+const createCheckChatsButton = async () => {
+    const place = await getElement('.mail-sidebar');
+    const button = document.createElement('button');
+    button.className = 'checkChatsButton';
+    button.innerText = 'Чаты операторов';
+    place.append(button);
+}
+
+createCheckChatsButton();
+
+const createModal = () => {
+    const modal = document.createElement('div');
+    modal.innerHTML = `
+    <div class=chats_modal>
+        <div class=operator_card>
+            <div class=card_container>
+                <div class=operator_name></div>
+                <div class=operator_chats>
+                    <button id=chat_id>28745612</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    `
+    document.body.append(modal);
+}
