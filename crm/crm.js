@@ -281,7 +281,6 @@ function setEventOnAppeals() {
 
         for (item of appeals) {
             item.addEventListener('click', prefAppeal);
-            item.
         }
 
     }, 700);
