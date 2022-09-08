@@ -306,25 +306,29 @@ h3.client-h3 {
 }
 
 .chats_modal {
-    display: block;
+    overflow: scroll;
+    display: flex;
+    flex-wrap: wrap;
     position: absolute;
-    top: 5%;
-    left: 5%;
+    top: 10%;
+    left: 20%;
 
-    z-index: 5000;
+    padding: 5px;
 
-    width: 90%;
-    height: 90%;
+    min-width: fit-content;
+    max-width: 1060px;
+    min-height: fit-content;
 
-    background-color: #000;
+    z-index: 10001;
+
+    background-color: #212425;
+    border: 2px solid #fff;
+    border-radius: 3px;
 }
 
 .operator_card {
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-    min-height: 180px;
-    margin: 20px;
+    max-width: 160px;
+    height: fit-content;
     padding: 10px;
     border-radius: 10px 20px;
 
@@ -348,23 +352,26 @@ h3.client-h3 {
 .operator_chats {
     display: flex;
     flex-wrap: wrap;
-
-    margin: 0 auto;
+    
+    max-height: 130px;
 }
 
 #chat_id {
     display: flex;
+    flex-wrap: wrap;
 
     border: 1px solid #1885b2;
     border-radius: 5px;
 
-    height: 30px;
-    width: 80px;
-
-    margin: 5px;
     padding: 5px 10px;
+    margin: 2px;
 
     background-color: #1885b2;
     color: #e8e6e3;
 
+}
+
+.fancybox-content .fancybox-iframe {
+    border: 2px solid #fff;
+    border-radius: 10px;
 }

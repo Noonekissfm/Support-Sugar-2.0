@@ -156,7 +156,7 @@ const getModalSiteInputAsync = async () => {
                 reject(new Error('Limit exceeded - getModalSiteInputAsync'));
             }
 
-            const modalIFrame = document.querySelector('.fancybox__iframe');
+            const modalIFrame = document.querySelector('.fancybox-iframe');
 
             if (!modalIFrame) {
                 return;
@@ -249,24 +249,50 @@ createToggleButton();
 
 const getChatId = async () => {
     const chats = document.querySelectorAll("#collapseOne-3 > div > ul > li");
-    state.chatId = [];
+    const arr = []
     for (item of chats) {
-        state.chatId.push(item.dataset.chat);
+        arr.push(item.dataset.chat);
     }
-    
+    return arr;
 }
 
 const getChats = async() => {
-    for (let i = 0; i < state.chatId.length; i++) {
+    
+    const arr = await getChatId();
+
+    for (let i = 0; i < arr.length; i++) {
         fetch(`https://secure.usedesk.ru/v1/chat/getMessagesByChat?chat=${state.chatId[i]}`)
         .then(data => data.json())
-        .then(resp => state.chats.push(resp));
+        .then(resp => arr.map(
+            arr.push(resp)
+        ));
+    }
+    console.log(arr)
+}
+
+const formateData = () => {
+    state.operators = {};
+
+    for (let i = 0; i < state.chats.length; i++) {
+        state.operators = {
+            [state.chats[i].assignee_name]: {
+            }
+        }
+    }
+
+    for (let i = 0; i < state.chats.length; i++) {
+        let name = state.chats[i].assignee_name;
+        for (item of state.chats) {
+            if (name === item.assignee_name) {
+                state.operators[name] = {item}
+            }
+        }
     }
 }
 
 const run = async () => {
-    await getChatId();
     await getChats();
+    console.log(state);
 }
 
 const createCheckChatsButton = async () => {
@@ -275,9 +301,11 @@ const createCheckChatsButton = async () => {
     button.className = 'checkChatsButton';
     button.innerText = 'Чаты операторов';
     place.append(button);
+
+    button.addEventListener('click', run);
 }
 
-createCheckChatsButton();
+// createCheckChatsButton();
 
 const createModal = () => {
     const modal = document.createElement('div');
@@ -285,13 +313,18 @@ const createModal = () => {
     <div class=chats_modal>
         <div class=operator_card>
             <div class=card_container>
-                <div class=operator_name></div>
+                <div class=operator_name>Иванов И.</div>
                 <div class=operator_chats>
                     <button id=chat_id>28745612</button>
+                    <button id=chat_id>28745613</button>
+                    <button id=chat_id>28745614</button>
+                    <button id=chat_id>28745615</button>
                 </div>
             </div>
         </div>
     </div>
     `
     document.body.append(modal);
+
+
 }

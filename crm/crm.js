@@ -1,7 +1,6 @@
 const cssClasses = {
-    TEXT_COMMENT: 'body > crm-app > div > clr-main-container > crm-app-header > clr-header > div.header-actions > a.nav-link.nav-text.add-comment'
+    TEXT_COMMENT: 'body > crm-app > div > clr-main-container > crm-users > div > crm-user-page > crm-user-detail > div > button:nth-child(1)'
 }
-
 const getElement = (selector) => new Promise ((resolve, reject) => {
     let count = 0;
     const timer = setInterval(() => {
@@ -24,7 +23,7 @@ const generalAppeal = async () => {
 }
 
 async function prefAppeal() {
-    const header = await getElement('div.modal-header');
+    const header = await getElement('div.modal-header--accessible');
 
     async function run() {
         await setChannel();

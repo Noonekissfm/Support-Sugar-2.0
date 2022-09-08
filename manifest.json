@@ -13,8 +13,8 @@
   "content_scripts" : [
     {
       "matches": ["https://secure.usedesk.ru/chat/*"], 
-      "css":["/usedesk/chat.css"],
-      "js": ["/usedesk/chat.js"]
+      "css":["/chat/chat.css"],
+      "js": ["/chat/chat.js"]
     },
     {
       "matches": ["https://secure.usedesk.ru/tickets?*"], 
