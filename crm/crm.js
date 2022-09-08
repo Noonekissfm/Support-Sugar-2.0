@@ -130,7 +130,6 @@ const setup = async () => {
         appeals.addEventListener('click', setEventOnAppeals);
         
     } catch (error) {
-        console.log(error)
     }
 }
 
