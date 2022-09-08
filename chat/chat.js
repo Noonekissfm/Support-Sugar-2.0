@@ -173,6 +173,72 @@ const getModalSiteInputAsync = async () => {
     })
 }
 
+const getModalElement = async (modal, selectorPath) => {
+    return new Promise((resolve,reject) => {
+
+        let count = 0;
+
+        const interval = setInterval(()=>{
+            count++
+            
+            if (count === 100) {
+                clearInterval(interval)
+                reject(new Error('timeout: element not found'))
+            }
+            const documentModal = document.querySelector(modal)
+
+            if (!documentModal) {
+                return;
+            }
+
+            const modalElement = documentModal.contentWindow.document.querySelector(selectorPath)
+
+            if (modalElement) {
+                clearInterval(interval);
+                resolve(modalElement)
+                return
+            }
+        }, 50)
+        
+    })
+}
+
+const getFancyboxContent = async () => {
+    const fancybox = document.querySelector('.fancybox-iframe')
+
+    const divsToRemove = [];
+
+    divsToRemove[0] = await getModalElement('.fancybox-iframe', 'h3');
+    divsToRemove[1] = await getModalElement('.fancybox-iframe', '#group_avatar')
+    divsToRemove[2] = await getModalElement('.fancybox-iframe', 'div:nth-child(3)')
+    divsToRemove[3] = await getModalElement('.fancybox-iframe', 'div:nth-child(4)')
+    divsToRemove[4] = await getModalElement('.fancybox-iframe', 'div:nth-child(6)')
+    divsToRemove[5] = await getModalElement('.fancybox-iframe', 'div:nth-child(9)')
+    divsToRemove[6] = await getModalElement('.fancybox-iframe', '#form .row:nth-child(8)')
+    divsToRemove[7] = await getModalElement('.fancybox-iframe', '#form .row:nth-child(9)')
+    
+    divsToRemove.forEach(item => {
+        if(item) {
+            item.remove();
+        }
+    })
+
+    const helpBlocks = fancybox.contentWindow.document.querySelectorAll('.help-block')
+
+    helpBlocks.forEach(item => {
+        item.remove();
+    });
+
+    const divs = fancybox.contentWindow.document.querySelectorAll('#form > div.form-horizontal div')
+    
+    for (item of divs) {
+        item.style.marginBottom = '0';
+    }
+
+    fancybox.parentElement.style.height = '650px'
+
+}
+
 const generateLink = async () => {
     const name = String(document.querySelector('h3[class="client-h3"]').innerText).trim()
     return `http://crm.spb.play.dc/users/${name}/info`;
@@ -182,7 +248,9 @@ const insertLinkToModalInput = async () => {
     try {
         const input = await getModalSiteInputAsync();
         const link = await generateLink();
-        input.value = link;
+        if(!input.value) {
+            input.value = link;
+        }
     } catch (error) {
         console.log(error);
     }
@@ -194,7 +262,8 @@ async function hotKeys(key) {
 
         const pencil = document.querySelector("#right_resize_container > div.panel.panel-primary.chat__client > div:nth-child(1) > div.text-center > h3 > a:nth-child(2)");
         pencil.click();
-        insertLinkToModalInput();
+        await getFancyboxContent();
+        await insertLinkToModalInput();
 
     }
 
