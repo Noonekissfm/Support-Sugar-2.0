@@ -23,10 +23,6 @@
     background-color: #630000;
 }
 
-.modal-title {
-    display: none;
-}
-
 .select select:active, .select select:hover {
     border-color: rgba(58, 62, 65, 0.5);
     background-image: initial;
@@ -89,8 +85,14 @@
     font-size: 15px;
 }
 
-#jira_task {
+#jira_task,
+#use_desk_task {
     width: 60%;
+    margin-right: 10px;
+}
+
+.clr-form-control.clr-row {
+    margin-top: 15px;
 }
 
 select {

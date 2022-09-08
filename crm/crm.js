@@ -17,13 +17,19 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
     }, 10);
 });
 
-const generalAppeal = async () => {
-    const generalAppeal = await getElement(cssClasses.TEXT_COMMENT);
-    generalAppeal.addEventListener('click', prefAppeal);
-}
+// const generalAppeal = async () => {
+//     const generalAppeal = await getElement(cssClasses.TEXT_COMMENT);
+//     generalAppeal.addEventListener('click', prefAppeal);
+// }
 
 async function prefAppeal() {
-    const header = await getElement('div.modal-header--accessible');
+    const header = await getElement('.modal-header--accessible .modal-title-wrapper');
+
+    if (header.querySelector('h3').innerText !== 'Добавить обращение') {
+        return
+    }
+
+    header.querySelector('h3').style.display = 'none';
 
     async function run() {
         await setChannel();
@@ -50,7 +56,7 @@ async function prefAppeal() {
             inputText.value = 'https://secure.usedesk.ru/tickets/НомерЗаявки';
         });
 
-        jiraTask.parentNode.append(btn);
+        inputText.parentNode.append(btn);
     }
 
 
@@ -60,13 +66,12 @@ async function prefAppeal() {
     crtModalBtn('Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 118, 65, 25, '', '--']);
     crtModalBtn('Ош.При оплате с БК', ['my-btn', 'my-btn--payment'], [3, 53, 27, 25, '', '--']);
     crtModalBtn('Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 49, 27, 25, '', 'SBER']);
-    crtModalBtn('Изм.ПД', ['my-btn', 'my-btn--data'], [1, 12, 4, 25, '', '--']);
-    crtModalBtn('Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 10, 10, 25, '', '--']);
-    crtModalBtn('Подк.Уст.', ['my-btn', 'my-btn--data'], [1, 11, 3, 25, '', '--']);
+    crtModalBtn('Изм.ПД', ['my-btn', 'my-btn--data'], [1, 142, 4, 25, '', '--']);
+    crtModalBtn('Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 143, 10, 25, '', '--']);
     crtModalBtn('Удаление', ['my-btn', 'my-btn--data'], [1, 14, 7, 25, 'Удаление', '--']);
     crtModalBtn('Мерж', ['my-btn', 'my-btn--data'], [1, 13, 9, 25, 'Мерж профилей', '--']);
-    crtModalBtn('Акции', ['my-btn'], [5, 80, 56, 25, '', '--']);
-    crtModalBtn('Ош.Воспр.', ['my-btn'], [4, 64, 49, 25, '', '--']);
+    crtModalBtn('Акции 306', ['my-btn'], [5, 86, 56, 25, '', '--']);
+    crtModalBtn('Ош.Воспр.', ['my-btn'], [4, 158, 49, 25, '', '--']);
     crtModalBtn('Клиент не ответил', ['my-btn'], [10, 132, 76, 25, '', '--']);
     crtModalBtn('Пожелание', ['my-btn'], [6, 100, 63, 25, '#Пожелание', 'WISH']);
     // crtModalBtn('Авария', ['my-btn', 'my-btn--accident'], [7, 117, 70, 25, '#Сбероптимум', 'SBER']);
@@ -121,7 +126,8 @@ const setup = async () => {
         button[0].onclick = prefAppeal;
         button[1].onclick = createDeleteButton;
 
-        appealsButton().addEventListener('click', setEventOnAppeals);
+        const appeals = appealsButton();
+        appeals.addEventListener('click', setEventOnAppeals);
         
     } catch (error) {
         console.log(error)
@@ -138,7 +144,7 @@ function setupForDelete () {
         email: document.querySelector('#updateUser_mail').value,
         // inputs...
         inputs : {
-            name: document.querySelector('#updateUser_dispalayName'),
+            name: document.querySelector('#updateUser_displayName'),
             phone: document.querySelector('#updateUser_phone'),
             email: document.querySelector('#updateUser_mail'),
             gender: document.querySelector('#updateUser_gender'),
@@ -146,8 +152,8 @@ function setupForDelete () {
         },
         // buttons...
         buttons: {
-            phone : document.querySelectorAll('.form-group button')[0],
-            email : document.querySelectorAll('.form-group button')[1]
+            phone : document.querySelectorAll('.modal-content button')[2],
+            email : document.querySelectorAll('.modal-content button')[3]
         }
     }
 
@@ -156,7 +162,7 @@ function setupForDelete () {
         
         if (userValue == user.phone) {
             value = 'phone',
-            selector = 'div.form-group.ng-star-inserted > input[type="tel"]';
+            selector = '.clr-input-wrapper > input[type="tel"]';
         } else {
             value = 'email',
             selector = 'div.form-group.ng-star-inserted > input[type="email"]';
@@ -264,18 +270,26 @@ function dispatchEvent(event, element) {
 }
 
 function setEventOnAppeals() {
-    setTimeout(() => {
+    const timer = setTimeout(() => {
         const appeals = document.querySelectorAll('.btn.btn-sm.btn-link.ng-star-inserted');
 
-        appeals.forEach(item => {
+        if (!appeals) {
+            clearTimeout(timer);
+            setEventOnAppeals();
+            return;
+        }
+
+        for (item of appeals) {
             item.addEventListener('click', prefAppeal);
-        });
+            item.
+        }
+
     }, 700);
 }
 
 const runSetup = async () => {
-    generalAppeal();
     const selector = await getElement('.ng-star-inserted > button');
+
     if (selector) {
         setup();
         return 
