@@ -13,23 +13,28 @@
   "content_scripts" : [
     {
       "matches": ["https://secure.usedesk.ru/chat/*"], 
-      "css":["/chat/chat.css"],
-      "js": ["/chat/chat.js"]
+      "css":["/chat/style.css"],
+      "js": ["/chat/index.js"]
     },
     {
       "matches": ["https://secure.usedesk.ru/tickets?*"], 
-      "css":["/mail/mail.css"],
-      "js": ["/mail/mail.js"]
+      "css":["/mail/style.css"],
+      "js": ["/mail/index.js"]
     },
     {
       "matches": ["https://secure.usedesk.ru/tickets/*"], 
-      "css":["/ticket/ticket.css"],
-      "js": ["/ticket/ticket.js"]
+      "css":["/ticket/style.css"],
+      "js": ["/ticket/index.js"]
     },
     {
       "matches": ["http://crm.spb.play.dc/users/*"], 
-      "css":["/crm/crm.css"],
-      "js": ["/crm/crm.js"]
+      "css":["/crm/style.css"],
+      "js": ["/crm/index.js"]
+    },
+    {
+      "matches": ["https://confluence.playteam.ru/*"], 
+      "css":["/confluence/style.css"],
+      "js": ["/confluence/index.js"]
     }
   ],
   "manifest_version": 3

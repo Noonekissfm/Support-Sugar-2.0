@@ -78,6 +78,7 @@ async function prefAppeal() {
     crtModalBtn('Ош.Воспр.', ['my-btn'], [4, 158, 49, 25, '', '--']);
     crtModalBtn('Клиент не ответил', ['my-btn'], [10, 132, 76, 25, '', '--']);
     crtModalBtn('Пожелание', ['my-btn'], [6, 100, 63, 25, '#Пожелание', 'WISH']);
+    
     // crtModalBtn('Авария', ['my-btn', 'my-btn--accident'], [7, 117, 70, 25, '#Сбероптимум', 'SBER']);
     
     function crtModalBtn(value, [first, second = 'no-extra'], selectorPath) {

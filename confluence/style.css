@@ -1,0 +1,32 @@
+.ia-splitter a {
+    color:#1a927c !important;
+}
+
+.tablesorter-headerRow {
+    background-color: #17806d;
+}
+
+#header > nav {
+    background-color: #17806d !important;
+    color: antiquewhite;
+}
+
+#create-page-button {
+    background-color: #17806d !important;
+    color: #DEEBFF !important;
+}
+#create-page-button:hover {
+    background-color: #1a082c7a !important;
+}
+
+#logo > a:hover,
+#space-menu-link:hover, 
+#people-directory-link:hover, 
+#yasoon-calendar-personal-link:hover {
+    border-radius: 3px;
+}
+
+#title-text > a {
+    color: #1c7061 !important 
+}
+

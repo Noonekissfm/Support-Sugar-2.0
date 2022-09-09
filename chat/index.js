@@ -328,40 +328,31 @@ const getChatId = async () => {
 const getChats = async() => {
     
     const arr = await getChatId();
+    const newArr = []
 
-    for (let i = 0; i < arr.length; i++) {
-        fetch(`https://secure.usedesk.ru/v1/chat/getMessagesByChat?chat=${state.chatId[i]}`)
+    arr.forEach(item => {
+        fetch(`https://secure.usedesk.ru/v1/chat/getMessagesByChat?chat=${item}&skip=0&take=25`)
         .then(data => data.json())
-        .then(resp => arr.map(
-            arr.push(resp)
-        ));
-    }
-    console.log(arr)
+        .then(resp => newArr.push(resp))
+    })
+
+    return newArr
+    
 }
 
-const formateData = () => {
-    state.operators = {};
+const formateData = async () => {
+    
+    // const arr = await getChats();
 
-    for (let i = 0; i < state.chats.length; i++) {
-        state.operators = {
-            [state.chats[i].assignee_name]: {
-            }
-        }
-    }
+    // arr.forEach(item => {
+    //     if (item.assignee_name )
+    // })
 
-    for (let i = 0; i < state.chats.length; i++) {
-        let name = state.chats[i].assignee_name;
-        for (item of state.chats) {
-            if (name === item.assignee_name) {
-                state.operators[name] = {item}
-            }
-        }
-    }
+
 }
 
 const run = async () => {
     await getChats();
-    console.log(state);
 }
 
 const createCheckChatsButton = async () => {
@@ -374,7 +365,7 @@ const createCheckChatsButton = async () => {
     button.addEventListener('click', run);
 }
 
-// createCheckChatsButton();
+createCheckChatsButton();
 
 const createModal = () => {
     const modal = document.createElement('div');
