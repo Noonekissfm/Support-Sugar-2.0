@@ -1,5 +1,8 @@
 const cssClasses = {
-    TEXT_COMMENT: 'body > crm-app > div > clr-main-container > crm-users > div > crm-user-page > crm-user-detail > div > button:nth-child(1)'
+    TEXT_COMMENT: 'body > crm-app > div > clr-main-container > crm-users > div > crm-user-page > crm-user-detail > div > button:nth-child(1)',
+}
+const state = {
+
 }
 const getElement = (selector) => new Promise ((resolve, reject) => {
     let count = 0;
@@ -25,7 +28,8 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
 async function prefAppeal() {
     const header = await getElement('.modal-header--accessible .modal-title-wrapper');
 
-    if (header.querySelector('h3').innerText !== 'Добавить обращение') {
+    if (!document.querySelector('h3').innerText === 'Добавить обращение' || 
+    !document.querySelector('h3').innerText === 'Редактировать обращение') {
         return
     }
 
@@ -164,7 +168,7 @@ function setupForDelete () {
             selector = '.clr-input-wrapper > input[type="tel"]';
         } else {
             value = 'email',
-            selector = 'div.form-group.ng-star-inserted > input[type="email"]';
+            selector = '.clr-input-wrapper input[type="email"]';
         }
         
         user.buttons[value].click()
@@ -286,12 +290,14 @@ function setEventOnAppeals() {
 }
 
 const runSetup = async () => {
-    const selector = await getElement('.ng-star-inserted > button');
+    state.selector = await getElement('.ng-star-inserted > button');
 
-    if (selector) {
+    if (state.selector.innerText === 'ДОБАВИТЬ ОБРАЩЕНИЕ') {
+        delete state.selector;
         setup();
         return 
     }
+    
 };
 
 setInterval(runSetup, 500);

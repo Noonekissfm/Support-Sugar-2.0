@@ -95,6 +95,11 @@
     margin-top: 15px;
 }
 
+#fastSearch {
+    padding-left: 7px;
+    margin-left: 5px;
+}
+
 select {
     background-color: #181a1b !important;
 }
