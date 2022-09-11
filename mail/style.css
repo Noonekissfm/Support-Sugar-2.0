@@ -130,3 +130,10 @@ body > div.page-container.sidebar-collapsed > div.main-content > div:nth-child(2
     background-color: #0d3749;
     color: #e8e6e3;
 }
+.showSidebarListsButton {
+    width: 100%;
+    padding: 8px;
+    border: none;
+    background-color: #0d3749;
+    color: #e8e6e3;
+}

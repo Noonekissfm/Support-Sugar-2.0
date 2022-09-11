@@ -154,17 +154,45 @@ const createToggleButton = async () => {
 createToggleButton();
 
 const deleteFilters = async () => {
-    const filters = await getElements('li[data-id]')
+    let flag = false;
 
-    for (item of filters) {
-        if (item.dataset.id != '41522') {
-            item.remove();
+    const button = document.createElement('button');
+    button.className = 'showSidebarListsButton';
+    button.innerText = 'Все разделы';
+    document.querySelector('#triggersFiltersMenu').append(button)
+
+    const sectionList = document.querySelectorAll('li[data-id]');
+
+    for (item of sectionList) {
+        if(item.dataset.id != '41522') {
+            item.classList.add('hide');
         }
-
     }
+
+    button.addEventListener('click', () => {
+        if (!flag) {
+            const lists = document.querySelectorAll('#triggersFiltersMenu li.hide');
+            button.innerText = 'Скрыть';
+            flag = true;
+            for (item of lists) {
+                item.classList.remove('hide');
+            }
+            return;
+        }
+        if (flag) {
+            const lists = document.querySelectorAll('li[data-id]');
+            button.innerText = 'Все разделы';
+            flag = false;
+            for (item of lists) {
+                if(item.dataset.id !== '41522') {
+                    item.classList.add('hide');
+                }
+            }
+        }
+    })
 }
 
-deleteFilters();
+//deleteFilters();
 
 const deleteLists = async () => {
     const lists = await getElements('li[class="dropdown "]');
@@ -184,8 +212,6 @@ const showLists = () => {
     document.querySelector('.navbar-nav').append(button);
 
     button.addEventListener('click', () => {
-
-
         if (!flag) {
             const lists = document.querySelectorAll('li[class="dropdown hide"]');
             button.innerText = 'Скрыть';
@@ -203,10 +229,7 @@ const showLists = () => {
                 item.classList.add('hide');
             }
         }
-
     })
-
-
 }
 
 showLists();
