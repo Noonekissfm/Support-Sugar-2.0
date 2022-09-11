@@ -306,33 +306,42 @@ h3.client-h3 {
 }
 
 .chats_modal {
-    overflow: scroll;
     display: flex;
     flex-wrap: wrap;
     position: absolute;
-    top: 10%;
-    left: 20%;
+
+    top: 25px;
+    left: 12.5%;
 
     padding: 5px;
 
-    min-width: fit-content;
-    max-width: 1060px;
+    width: 1064px;
     min-height: fit-content;
 
     z-index: 10001;
 
-    background-color: #212425;
-    border: 2px solid #fff;
+    background-color: rgb(225, 225, 225);
+    border: 2px solid rgb(255, 255, 255);
     border-radius: 3px;
 }
 
 .operator_card {
-    max-width: 160px;
+    display: flex;
+    width: 200px;
     height: fit-content;
+    
     padding: 10px;
-    border-radius: 10px 20px;
+    margin: 5px;
+
+    border-radius: 4px;
+
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.41);
 
     background-color: #fff;
+}
+
+.card_container {
+    margin: 0 auto;
 }
 
 .operator_name {
@@ -341,8 +350,10 @@ h3.client-h3 {
     margin-bottom: 10px;
     padding: 5px 10px;
 
-    border-radius: 5px 10px;
+    border-radius: 4px;
     border: 1px solid #1885b2;
+
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.41);
 
     height: 30px;
     width: fit-content;
@@ -352,6 +363,8 @@ h3.client-h3 {
 .operator_chats {
     display: flex;
     flex-wrap: wrap;
+
+    margin: 0 auto;
     
     max-height: 130px;
 }
@@ -361,10 +374,12 @@ h3.client-h3 {
     flex-wrap: wrap;
 
     border: 1px solid #1885b2;
-    border-radius: 5px;
+    border-radius: 4px;
 
     padding: 5px 10px;
-    margin: 2px;
+    margin: 2px 3px;
+
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.41);
 
     background-color: #1885b2;
     color: #e8e6e3;

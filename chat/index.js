@@ -269,7 +269,6 @@ async function hotKeys(key) {
 
     if (key.code === 'F4') {
         const link = String(window.location.href)
-        navigator.clipboard.writeText(`${link}`); //почему-то не вставляется ссылка в новой вкладке
 
         const name = String(document.querySelector('h3[class="client-h3"]').innerText).trim()
         window.open(`http://crm.spb.play.dc/users/${name}/info`);
@@ -325,34 +324,66 @@ const getChatId = async () => {
     return arr;
 }
 
-const getChats = async() => {
-    
-    const arr = await getChatId();
-    const newArr = []
-
-    arr.forEach(item => {
-        fetch(`https://secure.usedesk.ru/v1/chat/getMessagesByChat?chat=${item}&skip=0&take=25`)
-        .then(data => data.json())
-        .then(resp => newArr.push(resp))
-    })
-
-    return newArr
-    
+const createUrl = (key) => {
+    return `https://secure.usedesk.ru/v1/chat/getMessagesByChat?chat=${key}&skip=0&take=25`
 }
+
+const getChats = async() => {
+
+    const chatIdsArr = await getChatId();
+    const newArr = [];
+
+    const responseArr = await Promise.all(
+        await Promise.all(
+            chatIdsArr.map(item => fetch(createUrl(item)).then(res => res.json()))
+        )
+    );
+
+    return responseArr
+}
+
+const createModal = () => {
+    const modal = document.createElement('div');
+    modal.innerHTML = `
+    <div class=chats_modal>
+        
+    </div>
+    `
+    document.body.append(modal);
+}
+
+
 
 const formateData = async () => {
+
+    const modal = document.querySelector('.chats_modal')
+
+    const data = await getChats();
+
+    const names = new Set(data.map(item => item.assignee_name))
+    const namesArr = Array.from(names);
     
-    // const arr = await getChats();
-
-    // arr.forEach(item => {
-    //     if (item.assignee_name )
-    // })
-
-
-}
-
-const run = async () => {
-    await getChats();
+    for (let i = 0; i < namesArr.length; i++) {
+        let chatsHTML = ''
+        for (let j = 0; j < data.length; j++) {
+            if(namesArr[i] === data[j].assignee_name){
+                chatsHTML += `<a href="https://secure.usedesk.ru/tickets/${data[j].ticket_id}" target="_blank">
+                    <button id=chat_id>${data[j].ticket_id}</button>
+                </a>`
+            }
+        }
+        const html = `
+        <div class=operator_card>
+            <div class=card_container>
+                <div class=operator_name>${namesArr[i]}</div>
+                <div class=operator_chats>
+                ${chatsHTML}
+                </div>
+            </div>
+        </div>
+        `
+        modal.innerHTML += html;
+    }
 }
 
 const createCheckChatsButton = async () => {
@@ -362,29 +393,15 @@ const createCheckChatsButton = async () => {
     button.innerText = 'Чаты операторов';
     place.append(button);
 
-    button.addEventListener('click', run);
+    button.addEventListener('click', ()=>{
+        const modal = document.querySelector('.chats_modal')
+        if (!modal) {
+            createModal()
+            formateData()
+            return;
+        }
+        modal.remove()
+    });
 }
 
 createCheckChatsButton();
-
-const createModal = () => {
-    const modal = document.createElement('div');
-    modal.innerHTML = `
-    <div class=chats_modal>
-        <div class=operator_card>
-            <div class=card_container>
-                <div class=operator_name>Иванов И.</div>
-                <div class=operator_chats>
-                    <button id=chat_id>28745612</button>
-                    <button id=chat_id>28745613</button>
-                    <button id=chat_id>28745614</button>
-                    <button id=chat_id>28745615</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    `
-    document.body.append(modal);
-
-
-}
