@@ -192,7 +192,7 @@ const deleteFilters = async () => {
     })
 }
 
-//deleteFilters();
+deleteFilters();
 
 const deleteLists = async () => {
     const lists = await getElements('li[class="dropdown "]');
