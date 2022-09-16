@@ -20,10 +20,18 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
     }, 10);
 });
 
-// const generalAppeal = async () => {
-//     const generalAppeal = await getElement(cssClasses.TEXT_COMMENT);
-//     generalAppeal.addEventListener('click', prefAppeal);
-// }
+const generalAppeal = async () => {
+    const addAppealButton = await getElement('.nav-link.nav-text.add-comment');
+    console.log(1)
+    if (addAppealButton.innerText !== 'Добавить обращение') {
+        console.log(2)
+        return
+    }
+
+    addAppealButton.addEventListener('click', prefAppeal);
+}
+
+generalAppeal();
 
 async function prefAppeal() {
     const header = await getElement('.modal-header--accessible .modal-title-wrapper');
@@ -50,7 +58,6 @@ async function prefAppeal() {
         }
 
 
-        const jiraTask = await getElement('label[for="jira_task"]');
         const inputText = await getElement('#jira_task');
         const btn = createElement('button', 'my-btn', '...');
         btn.classList.add('my-btn--payment');
@@ -117,7 +124,7 @@ async function createDeleteButton() {
 const appealsButton = () => {
     const el = document.querySelectorAll('a');
 
-    if (el[15].innerText === 'Обращения') {
+    if (el[15].innerText === 'Обращения и Автокомментарии') {
         return el[15]
     } else {
         throw new Error('item not found...')
@@ -276,12 +283,15 @@ function dispatchEvent(event, element) {
 function setEventOnAppeals() {
     const timer = setTimeout(() => {
         const appeals = document.querySelectorAll('.btn.btn-sm.btn-link.ng-star-inserted');
+        const radio = document.querySelector("#clr-tab-content-1 > crm-user-appeals > crm-user-appeals-list > form > clr-radio-container > div > clr-radio-wrapper:nth-child(2) > label")
 
         if (!appeals) {
             clearTimeout(timer);
             setEventOnAppeals();
             return;
         }
+
+        radio.click();
 
         for (item of appeals) {
             item.addEventListener('click', prefAppeal);
