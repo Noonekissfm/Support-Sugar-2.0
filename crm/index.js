@@ -2,7 +2,7 @@ const cssClasses = {
     TEXT_COMMENT: 'body > crm-app > div > clr-main-container > crm-users > div > crm-user-page > crm-user-detail > div > button:nth-child(1)',
 }
 const state = {
-
+    counter: 0,
 }
 const getElement = (selector) => new Promise ((resolve, reject) => {
     let count = 0;
@@ -22,9 +22,7 @@ const getElement = (selector) => new Promise ((resolve, reject) => {
 
 const generalAppeal = async () => {
     const addAppealButton = await getElement('.nav-link.nav-text.add-comment');
-    console.log(1)
     if (addAppealButton.innerText !== 'Добавить обращение') {
-        console.log(2)
         return
     }
 
@@ -282,9 +280,14 @@ function dispatchEvent(event, element) {
 }
 
 function setEventOnAppeals() {
+    if(state.counter >= 50) {
+        state.counter = 0;
+        return
+    }
     const timer = setTimeout(() => {
+        state.counter += 1;
         const appeals = document.querySelectorAll('.btn.btn-sm.btn-link.ng-star-inserted');
-        const radio = document.querySelector("#clr-tab-content-1 > crm-user-appeals > crm-user-appeals-list > form > clr-radio-container > div > clr-radio-wrapper:nth-child(2) > label")
+        const radio = document.querySelectorAll('input[type="radio"]')[1]
 
         if (!appeals) {
             clearTimeout(timer);
@@ -292,13 +295,15 @@ function setEventOnAppeals() {
             return;
         }
 
-        radio.click();
+        if(radio.nextElementSibling.innerText === 'Обращения') {
+            radio.click();
+        }
 
         for (item of appeals) {
             item.addEventListener('click', prefAppeal);
         }
-
-    }, 700);
+        
+    }, 50);
 }
 
 const runSetup = async () => {
