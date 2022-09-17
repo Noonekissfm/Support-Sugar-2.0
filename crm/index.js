@@ -73,7 +73,8 @@ async function prefAppeal() {
 
     crtModalBtn('Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 44, 16, 25, '', '--']);
     crtModalBtn('Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 44, 17, 25, '', '--']);
-    crtModalBtn('Неж.Списание', ['my-btn', 'my-btn--payment'], [2, 44, 80, 25, '', '--']);
+    crtModalBtn('Неж.Списание-Конс', ['my-btn', 'my-btn--payment'], [2, 44, 80, 25, '', '--']);
+    crtModalBtn('Неж.Списание-Мерж', ['my-btn', 'my-btn--payment'], [2, 146, 81, 25, '', '--']);
     crtModalBtn('Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 118, 65, 25, '', '--']);
     crtModalBtn('Ош.При оплате с БК', ['my-btn', 'my-btn--payment'], [3, 53, 27, 25, '', '--']);
     crtModalBtn('Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 49, 27, 25, '', 'SBER']);
