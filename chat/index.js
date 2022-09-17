@@ -331,7 +331,6 @@ const createUrl = (key) => {
 const getChats = async() => {
 
     const chatIdsArr = await getChatId();
-    const newArr = [];
 
     const responseArr = await Promise.all(
         await Promise.all(
