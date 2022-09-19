@@ -1,27 +1,65 @@
-const cssClasses = {
-    TEXT_COMMENT: 'body > crm-app > div > clr-main-container > crm-users > div > crm-user-page > crm-user-detail > div > button:nth-child(1)',
+window.addEventListener('load', injectFonts);
+
+function injectFonts() {
+    const head = document.querySelector('head');
+
+    head.innerHTML += `
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    `
+    return;
 }
+
 const state = {
     counter: 0,
 }
-const getElement = (selector) => new Promise ((resolve, reject) => {
+
+const getElement = selector => new Promise (resolve => {
     let count = 0;
+
     const timer = setInterval(() => {
-        count++;
-        const el = document.querySelector(selector);
-        if (el) {
-            clearInterval(timer);
-            return resolve(el);
-        }
         if (count == 1000) {
             clearInterval(timer);
             return 
         }
+
+        const el = document.querySelector(selector);
+        
+        if (el) {
+            clearInterval(timer);
+            return resolve(el);
+        }
+
+        count++;
     }, 10);
 });
 
+const getElements = async (selector) => {
+    return new Promise((resolve, reject) => {
+        const count = 0;
+
+        const intervalId = setInterval(() => {
+            if (count === 1000) {
+                clearInterval(intervalId)
+                return reject(new Error('getElements timeOut...'))
+            }
+
+            const elements = document.querySelectorAll(selector)
+
+            if (!elements) {
+                count++
+                return
+            }
+            clearInterval(intervalId)
+            return resolve(elements)
+
+        }, 10)
+    })
+}
+
 const generalAppeal = async () => {
     const addAppealButton = await getElement('.nav-link.nav-text.add-comment');
+
     if (addAppealButton.innerText !== 'Добавить обращение') {
         return
     }
@@ -102,13 +140,15 @@ async function prefAppeal() {
 }  
 
 async function fillAppeal(selectorPath) {
-     try {
-        await setOption('#issue_category_0', selectorPath[0]); // category..
-        await setOption('#issue_root_cause_reason_0', selectorPath[1]); // reason..
-        await setOption('#issue_actions_0', selectorPath[2]); // actions..
-        await setOption('#issue_platform_0', selectorPath[3]); // platform..
-        await setOption('#issue_description_0', selectorPath[4]); // description..
-        await setOption('#issue_tags_0', selectorPath[5]); // description..
+    try {
+        await Promise.all([
+            setOption('#issue_category_0', selectorPath[0]), // category..
+            setOption('#issue_root_cause_reason_0', selectorPath[1]), // reason..
+            setOption('#issue_actions_0', selectorPath[2]), // actions..
+            setOption('#issue_platform_0', selectorPath[3]), // platform..
+            setOption('#issue_description_0', selectorPath[4]), // description..
+            setOption('#issue_tags_0', selectorPath[5]) // description..
+        ])
     } catch(err) {
         console.log(err)
     }
@@ -149,7 +189,6 @@ const setup = async () => {
 function setupForDelete () {
     const user = {
         // values...
-        ID: document.querySelector('.clr-col-lg-5 .table-vertical tr').children[1].innerText,
         phone: document.querySelector('#updateUser_phone').value,
         email: document.querySelector('#updateUser_mail').value,
         // inputs...
@@ -167,7 +206,7 @@ function setupForDelete () {
         }
     }
 
-    const saveAdditionalInfo = (userValue) => { 
+    const saveAdditionalInfo = userValue => { 
         let value, selector;
         
         if (userValue == user.phone) {
@@ -219,6 +258,14 @@ function setupForDelete () {
         }
     }
     clearInputs()
+
+    const id = document.querySelector('.clr-col-lg-5 .table-vertical tr');
+    
+    if(!id) {
+        user.ID = prompt('Не удалось найти номер счёта на странице, пожалуйста введи его: ')
+    } else {
+        user.ID = id.children[1].innerText;
+    }
     
     user.inputs.name.value = `delete${user.ID}`;
     user.inputs.email.value = `delete${user.ID}@okko.ru`;
@@ -279,31 +326,29 @@ function dispatchEvent(event, element) {
     element.dispatchEvent(e);
 }
 
-function setEventOnAppeals() {
-    if(state.counter >= 50) {
-        state.counter = 0;
-        return
+async function setEventOnAppeals() {
+    const radio = await getElements('input[type="radio"]')
+    
+    if (radio) {
+        if(radio[1].nextElementSibling.innerText === 'Обращения') {
+            radio[1].click();
+        }
     }
-    const timer = setTimeout(() => {
-        state.counter += 1;
-        const appeals = document.querySelectorAll('.btn.btn-sm.btn-link.ng-star-inserted');
-        const radio = document.querySelectorAll('input[type="radio"]')[1]
 
-        if (!appeals) {
-            clearTimeout(timer);
-            setEventOnAppeals();
+    const timer = setTimeout(()=>{
+        const appeals = document.querySelectorAll('.card-footer button.ng-star-inserted');
+        if (appeals.length === 0) {
             return;
         }
-
-        if(radio.nextElementSibling.innerText === 'Обращения') {
-            radio.click();
-        }
-
-        for (item of appeals) {
-            item.addEventListener('click', prefAppeal);
-        }
         
-    }, 50);
+        for (item of appeals) {
+            if(item.innerText === 'РЕДАКТИРОВАТЬ'){
+                item.addEventListener('click', prefAppeal)
+            }
+        }
+        clearTimeout(timer);
+        return;
+    }, 1000)
 }
 
 const runSetup = async () => {

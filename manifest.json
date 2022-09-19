@@ -27,7 +27,7 @@
       "js": ["/ticket/index.js"]
     },
     {
-      "matches": ["http://crm.spb.play.dc/users/*"], 
+      "matches": ["http://crm.spb.play.dc/users/*", "http://crm.spb.play.dc/payments/cancel"],
       "css":["/crm/style.css"],
       "js": ["/crm/index.js"]
     },

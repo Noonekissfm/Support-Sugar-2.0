@@ -1,3 +1,7 @@
+* {
+    font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
 .delete-button {
     display: flex;
     padding: 6px 8px 3px 9px;
@@ -98,6 +102,18 @@
 #fastSearch {
     padding-left: 7px;
     margin-left: 5px;
+}
+
+.modal-body-wrapper {
+    min-height: fit-content;
+}
+
+#prepayment-cancel__extPaymentId {
+    min-width: 30% !important; 
+}
+
+.header-actions {
+    margin-right: 24px;
 }
 
 select {

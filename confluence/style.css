@@ -1,18 +1,27 @@
+:root {
+    --main-color-theme: #17806d;
+    --font-weight: 500;
+}
+
+* {
+    font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
 .ia-splitter a {
     color:#1a927c !important;
 }
 
 .tablesorter-headerRow {
-    background-color: #17806d;
+    background-color: var(--main-color-theme) !important;
 }
 
-#header > nav {
-    background-color: #17806d !important;
+#header .aui-header {
+    background-color: var(--main-color-theme) !important;
     color: antiquewhite;
 }
 
 #create-page-button {
-    background-color: #17806d !important;
+    background-color: var(--main-color-theme) !important;
     color: #DEEBFF !important;
 }
 #create-page-button:hover {
@@ -27,6 +36,16 @@
 }
 
 #title-text > a {
-    color: #1c7061 !important 
+    color: #1c7061 !important;
 }
 
+.acs-side-bar-content,
+.sectionMacroRow,
+.page-metadata a,
+.page-metadata span,
+.page-metadata li,
+#navigation span,
+#breadcrumbs span,
+.space-information-container a { 
+    font-weight: var(--font-weight) !important;
+}

@@ -1,4 +1,8 @@
-                    /* Темная тема */
+:root {
+    --main-font-size: 1.4vh;
+    --signs: 1.3vh;
+}
+                  /* Темная тема */
 /* ------------------ Сообщения ------------------ */
 
 .dark .messages-group__messages,
@@ -9,12 +13,14 @@
 
 .dark .message-group-item__private {
     background-color: #3d2746 !important; 
+    font-size: var(--main-font-size);
 }
 
     /* -- Операторские -- */    
 
 .dark .message_group__operator .messages-group__message:not(.message-group-item__private) {
     background-color: #3e6284 !important;
+    font-size: var(--main-font-size);
 }
 
 
@@ -22,12 +28,14 @@
 
 .dark .messages-group__message:not(.message-group-item__private) {
     background-color: #222e3a !important;
+    font-size: var(--main-font-size);
 }
 
     /* -- Ссылки -- */
 
 .dark .messages-group__messages a {
     color: #ffffff !important;
+    font-size: var(--main-font-size);
 }
 
 .dark .messages-group__messages a:hover {
@@ -103,6 +111,10 @@
 
 /*  =============================================  */
 
+* {
+    font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
 .messages-group__messages {
     margin: 0px 15px !important;
 }
@@ -114,16 +126,17 @@
     color: #ffffffd0 !important;
 }
 
-    /* -- Правый сайдбар -- */
-
 .chat-message__date,
-.chat-message__name-of-responder,
-.message-group-item__private {
-    font-style: italic;
+#online-status-switch span,
+#button_assign_next_chat span,
+.panel-body.form-horizontal.browser-panel p {
+    font-size: var(--signs);
 }
+    /* -- Правый сайдбар -- */
 
 #id__chat__actions-wrapper > div:nth-child(2) {
     display: flex;
+    flex-direction: column;
     justify-content: center;
 }
 
@@ -174,6 +187,11 @@ body > div.page-container.sidebar-collapsed > div.main-content.main-content_chat
 #right_resize_container > div.panel.panel-primary.chat__client > div:nth-child(1) > div.text-center {
     text-align: left;
 }
+
+#right_resize_container .panel-body.form-horizontal div.copirable-row a {
+    font-size: var(--main-font-size);
+}
+
 h3.client-h3 {
     white-space: normal;
 }
@@ -181,8 +199,6 @@ h3.client-h3 {
 .form-horizontal {
     margin-top: 20px;
 }
-
-
 
 /* --------------Кнопка "В ожидании"-------------- */
 
@@ -215,7 +231,7 @@ h3.client-h3 {
     border-radius: 3px;
 
     color: #737881;
-    font-size: 12px;
+    font-size: 1.5vh;
     font-weight: 400;
     min-height: 20px;
     min-width: 20px;
@@ -260,8 +276,6 @@ h3.client-h3 {
     border-left: none;
 }
 
-
-
 .sidebar-menu {
     position: absolute !important;
     left: -65px;
@@ -277,11 +291,12 @@ h3.client-h3 {
 .checkChatsButton {
     -webkit-appearance: none !important;
 
-    height: 32px;
-    width: 159px;
+    width: -webkit-fill-available;
+    max-width: 160px;
+    min-width: 111px;
 
     text-align: center;
-    line-height: 4px;
+    line-height: 17px;
 
     cursor: pointer;
     display: block;
@@ -293,16 +308,23 @@ h3.client-h3 {
     color: #e8e6e3;
     background-color: #1885b2;
 
-    font-size: 12px;
-    font-weight: 400;
+    font-size: var(--main-font-size);
     min-height: 20px;
     min-width: 20px;
 
-    padding: 10px 20px;
+    padding: 5px 5% 5px 5%;
     margin: 0 auto;
     margin-top: 10px;
 
     transition: all 0.3s ease;
+}
+
+.checkChatsButton:hover {
+    background-color: #157299;
+}
+
+.checkChatsButton:active {
+    background-color: #1e9acf;
 }
 
 .chats_modal {
@@ -315,7 +337,7 @@ h3.client-h3 {
 
     padding: 5px;
 
-    max-width: 1064px;
+    max-width: 1115px;
     width: fit-content;
     min-height: fit-content;
 
@@ -328,7 +350,7 @@ h3.client-h3 {
 
 .operator_card {
     display: flex;
-    width: 200px;
+    width: 210px;
     height: fit-content;
     
     padding: 10px;
@@ -366,8 +388,9 @@ h3.client-h3 {
 .operator_chats {
     display: flex;
     flex-wrap: wrap;
+    overflow-y: auto;
 
-    margin: 0 auto;
+    justify-content: center;
     
     max-height: 130px;
 }
@@ -375,11 +398,14 @@ h3.client-h3 {
 #chat_id {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+
+    width: 80px;
 
     border: 1px solid #17806d;
     border-radius: 4px;
 
-    padding: 5px 10px;
+    padding: 5px 5px;
     margin: 2px 3px;
 
     box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.41);
