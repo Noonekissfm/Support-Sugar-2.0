@@ -1,5 +1,6 @@
 * {
-    font-family: 'Montserrat', 'Arial', sans-serif;
+    font-family: 'Montserrat', sans-serif;
+    font-display: fallback !important;
 }
 
 .delete-button {

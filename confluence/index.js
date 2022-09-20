@@ -1,5 +1,6 @@
 window.addEventListener('load', injectFonts);
 
+
 function injectFonts() {
     const head = document.querySelector('head');
 
