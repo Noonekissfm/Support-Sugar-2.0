@@ -111,9 +111,19 @@
 
 /*  =============================================  */
 
+
 * {
     font-family: 'Montserrat', sans-serif;
     font-display: fallback !important;
+}
+
+.has-switch {
+    border-color: rgb(255 255 255 / 18%) !important;
+}
+
+div.chat-body div.last-message {
+    font-weight: 500;
+    font-size: var(--signs);
 }
 
 .messages-group__messages {
