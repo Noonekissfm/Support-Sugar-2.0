@@ -1,3 +1,25 @@
+:root {
+    --main-font-size: 14px;
+    --signs: 13px;
+}
+
+* {
+    font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+body,
+.horizontal-scroll p {
+    font-size: var(--main-font-size) !important;
+}
+
+.editor-note a {
+    min-width: 120px;
+}
+
+#right_resize_container {
+    min-width: 350px;
+}
+
 .sidebar-menu {
     position: absolute !important;
     left: -65px;

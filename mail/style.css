@@ -1,5 +1,14 @@
+:root {
+    --main-font-size: 14px;
+    --signs: 13px;
+}
+
 * {
     font-family: 'Montserrat', 'Arial', sans-serif;
+}
+
+body {
+    font-size: var(--main-font-size) !important;
 }
 
 .timerPanel {
@@ -22,7 +31,7 @@
     border-radius: 3px;
 
     color: #737881;
-    font-size: 12px;
+    font-size: var(--signs);
     font-weight: 400;
     min-height: 20px;
     min-width: 20px;
@@ -110,7 +119,7 @@ body > div.page-container.sidebar-collapsed > div.main-content > div:nth-child(2
     border-radius: 3px;
 
     color: #737881;
-    font-size: 12px;
+    font-size: var(--signs);
     font-weight: 400;
     min-height: 20px;
     min-width: 20px;
@@ -129,7 +138,10 @@ body > div.page-container.sidebar-collapsed > div.main-content > div:nth-child(2
 }
 
 .showListsButton {
+    box-sizing: border-box;
     padding: 16px;
+    line-height: 17px;
+    font-size: var(--main-font-size);
     border: none;
     background-color: #0d3749;
     color: #e8e6e3;
