@@ -68,28 +68,29 @@
     /* -- Комментари и Сервисные -- */
 
 .message-group-item__private {
-    /* background-color: #68cd95 !important; */
     background-color: #3fb7ab !important;
+    font-size: var(--main-font-size);
 }
 
     /* -- Операторские -- */
 
 .message_group__operator .messages-group__message:not(.message-group-item__private) {
-    /* background-color: #ebe9d9 !important; */
     background-color: #92ceb2 !important;
+    font-size: var(--main-font-size);
 }
 
     /* -- Клиентские -- */
 
 .messages-group__message:not(.message-group-item__private) {
-    /* background-color: #d3d0d0 !important; */
     background-color: #dcead9 !important;
+    font-size: var(--main-font-size);
 }
 
     /* -- Ссылки -- */
 
 .messages-group__messages a {
     color: #000 !important;
+    font-size: var(--main-font-size);
 }
 
 .messages-group__messages a:hover {
@@ -100,7 +101,6 @@
     /* -- Правый сайдбар -- */
 
 #right_resize_container > div.panel.panel-primary.chat__client > div.panel-body.form-horizontal.browser-panel {
-    /* background-color: #68cd95; */
     background-color: #3fb7ab;
     color: #000;
 }
@@ -131,6 +131,11 @@
 #button_assign_next_chat span,
 .panel-body.form-horizontal.browser-panel p {
     font-size: var(--signs);
+}
+
+.panel-body.form-horizontal.browser-panel p,
+#online-status-switch span {
+    font-weight: 500;
 }
     /* -- Правый сайдбар -- */
 
@@ -231,12 +236,12 @@ h3.client-h3 {
     border-radius: 3px;
 
     color: #737881;
-    font-size: 1.5vh;
-    font-weight: 400;
+    font-size: var(--main-font-size);
+    font-weight: 500;
     min-height: 20px;
     min-width: 20px;
 
-    padding: 0 .4rem;
+    padding: 8px 4px;
     margin: 3px 3px;
 
     transition: all 0.3s ease;
@@ -296,7 +301,7 @@ h3.client-h3 {
     min-width: 111px;
 
     text-align: center;
-    line-height: 17px;
+    line-height: 18px;
 
     cursor: pointer;
     display: block;
@@ -308,7 +313,8 @@ h3.client-h3 {
     color: #e8e6e3;
     background-color: #1885b2;
 
-    font-size: var(--main-font-size);
+    font-size: var(--signs);
+    font-weight: 400;
     min-height: 20px;
     min-width: 20px;
 

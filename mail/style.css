@@ -11,6 +11,14 @@ body {
     font-size: var(--main-font-size) !important;
 }
 
+#online-status {
+    width: 120px !important;
+}
+
+#online-status-switch span {
+    font-weight: 500;
+}
+
 .timerPanel {
     margin-top: 10px;
 }
@@ -31,12 +39,12 @@ body {
     border-radius: 3px;
 
     color: #737881;
-    font-size: var(--signs);
-    font-weight: 400;
+    font-size: var(--main-font-size);
+    font-weight: 500;
     min-height: 20px;
     min-width: 20px;
 
-    padding: 0 .4rem;
+    padding: 8px 4px;
     margin: 3px 3px;
 
     transition: all 0.3s ease;
@@ -120,7 +128,7 @@ body > div.page-container.sidebar-collapsed > div.main-content > div:nth-child(2
 
     color: #737881;
     font-size: var(--signs);
-    font-weight: 400;
+    font-weight: 500;
     min-height: 20px;
     min-width: 20px;
 
