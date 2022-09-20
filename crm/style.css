@@ -33,12 +33,6 @@
     background-color: rgb(43 47 49);
 }
 
-/* .modal-header {
-    min-width: 100%;
-    min-height: 30px;
-    background-color: #630000;
-} */
-
 .my-btn {
     -webkit-appearance: none!important;
 
@@ -54,8 +48,9 @@
     color: #4bc1ff;
     font-size: 12px;
     font-weight: 700;
+    letter-spacing: -1px;
+    
     height: 25px;
-
     padding: 0 .4rem;
     margin: 3px 3px;
 }

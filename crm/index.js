@@ -109,10 +109,10 @@ async function prefAppeal() {
 
     crtModalBtn('Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 44, 16, 25, '', '--']);
     crtModalBtn('Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 44, 17, 25, '', '--']);
-    crtModalBtn('Неж.Списание-Конс', ['my-btn', 'my-btn--payment'], [2, 44, 80, 25, '', '--']);
-    crtModalBtn('Неж.Списание-Мерж', ['my-btn', 'my-btn--payment'], [2, 146, 81, 25, '', '--']);
+    crtModalBtn('Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 44, 80, 25, '', '--']);
+    crtModalBtn('Неж.Спис.Мерж', ['my-btn', 'my-btn--payment'], [2, 146, 81, 25, '', '--']);
     crtModalBtn('Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 118, 65, 25, '', '--']);
-    crtModalBtn('Ош.При оплате с БК', ['my-btn', 'my-btn--payment'], [3, 53, 27, 25, '', '--']);
+    crtModalBtn('Ош.Оплата БК', ['my-btn', 'my-btn--payment'], [3, 53, 27, 25, '', '--']);
     crtModalBtn('Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 49, 27, 25, '', 'SBER']);
     crtModalBtn('Изм.ПД', ['my-btn', 'my-btn--data'], [1, 142, 4, 25, '', '--']);
     crtModalBtn('Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 143, 10, 25, '', '--']);
@@ -120,7 +120,7 @@ async function prefAppeal() {
     crtModalBtn('Мерж', ['my-btn', 'my-btn--data'], [1, 13, 9, 25, 'Мерж профилей', '--']);
     crtModalBtn('Акции 306', ['my-btn'], [5, 86, 56, 25, '', '--']);
     crtModalBtn('Ош.Воспр.', ['my-btn'], [4, 158, 49, 25, '', '--']);
-    crtModalBtn('Клиент не ответил', ['my-btn'], [10, 132, 76, 25, '', '--']);
+    crtModalBtn('Кл.Не ответил', ['my-btn'], [10, 132, 76, 25, '', '--']);
     crtModalBtn('Пожелание', ['my-btn'], [6, 100, 63, 25, '#Пожелание', 'WISH']);
     
     // crtModalBtn('Авария', ['my-btn', 'my-btn--accident'], [7, 117, 70, 25, '#Сбероптимум', 'SBER']);
