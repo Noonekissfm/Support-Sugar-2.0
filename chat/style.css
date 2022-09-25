@@ -115,6 +115,7 @@
 * {
     font-family: 'Montserrat', sans-serif;
     font-display: fallback !important;
+    
 }
 
 .has-switch {
@@ -391,6 +392,7 @@ h3.client-h3 {
     padding: 5px 10px;
 
     color: #17806d;
+    font-size: var(--signs);
 
     border-radius: 4px;
     border: 1px solid #17806d;
