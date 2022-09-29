@@ -23,27 +23,6 @@ const getElement = (selector) =>
         }, 10);
     });
 
-const getMultiLevelThreeElement = (selector) =>
-    new Promise((resolve) => {
-        let count = 0;
-
-        const timer = setInterval(() => {
-            if (count == 1000) {
-                clearInterval(timer);
-                return;
-            }
-
-            const el = document.querySelector(selector);
-
-            if (el && el.children.length > 1) {
-                clearInterval(timer);
-                return resolve(el);
-            }
-
-            count++;
-        }, 10);
-    });
-
 const getElements = async (selector) => {
     return new Promise((resolve, reject) => {
         const count = 0;
@@ -78,6 +57,67 @@ const generalAppeal = async () => {
 
 generalAppeal();
 
+async function actualIssue() {
+    const actualIssue = await getElement('#is_actual_issue_0');
+    if (actualIssue.checked != true) {
+        actualIssue.checked = true;
+        dispatchEvent('change', actualIssue);
+    }
+
+    const inputText = await getElement('#jira_task');
+    const btn = createElement('button', 'my-btn', '...');
+    btn.classList.add('my-btn--payment');
+
+    btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        inputText.value = 'https://secure.usedesk.ru/tickets/НомерЗаявки';
+    });
+
+    inputText.parentNode.append(btn);
+}
+
+async function setBaseSetup() {
+    await setChannel();
+    await setOption('#issue_product_0', 1);
+    await actualIssue();
+}
+
+function createAutofillAppealButton(parent, value, [first, second = 'no-extra'], selectorPath) {
+    const btn = createElement('button', first, value);
+    btn.classList.add(second);
+
+    btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        fillAppeal(selectorPath);
+    });
+
+    parent.appendChild(btn);
+}
+
+function wrapperButtonsCreator(parent) {
+    const buttonsConfig = [
+        ['Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 5, 1, 26]],
+        ['Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 5, 2, 26]],
+        ['Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 5, 9, 26]],
+        ['Неж.Спис.Мерж', ['my-btn', 'my-btn--payment'], [2, 7, 10, 26]],
+        ['Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 3, 3, 26]],
+        ['Ош.Оплата БК', ['my-btn', 'my-btn--payment'], [3, 1, 2, 26]],
+        ['Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 2, 2, 26]],
+        ['Изм.ПД', ['my-btn', 'my-btn--data'], [1, 19, 3, 26]],
+        ['Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 20, 2, 26]],
+        ['Удаление', ['my-btn', 'my-btn--data'], [1, 3, 6, 26]],
+        ['Мерж', ['my-btn', 'my-btn--data'], [1, 2, 8, 26]],
+        ['Акции 306', ['my-btn'], [5, 5, 2, 26]],
+        ['Ош.Воспр.', ['my-btn'], [4, 10, 12, 26]],
+        ['Кл.Не ответил', ['my-btn'], [10, 1, 1, 26]],
+        ['Пожелание', ['my-btn'], [6, 6, 3, 26]],
+    ];
+
+    for(item of buttonsConfig) {
+        createAutofillAppealButton(parent, ...item);
+    }
+}
+
 async function prefAppeal() {
     const header = await getElement('.modal-header--accessible .modal-title-wrapper');
 
@@ -86,64 +126,8 @@ async function prefAppeal() {
     }
 
     header.querySelector('h3').style.display = 'none';
-
-    async function run() {
-        await setChannel();
-        await setOption('#issue_product_0', 1);
-        await actualIssue();
-    }
-    run();
-
-    async function actualIssue() {
-        const actualIssue = await getElement('#is_actual_issue_0');
-        if (actualIssue.checked != true) {
-            actualIssue.checked = true;
-            dispatchEvent('change', actualIssue);
-        }
-
-        const inputText = await getElement('#jira_task');
-        const btn = createElement('button', 'my-btn', '...');
-        btn.classList.add('my-btn--payment');
-
-        btn.addEventListener('click', (event) => {
-            event.preventDefault();
-            inputText.value = 'https://secure.usedesk.ru/tickets/НомерЗаявки';
-        });
-
-        inputText.parentNode.append(btn);
-    }
-
-    crtModalBtn('Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 5, 1, 26]);
-    crtModalBtn('Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 5, 2, 26]);
-    crtModalBtn('Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 5, 9, 26]);
-    crtModalBtn('Неж.Спис.Мерж', ['my-btn', 'my-btn--payment'], [2, 7, 10, 26]);
-    crtModalBtn('Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 3, 3, 26]);
-    crtModalBtn('Ош.Оплата БК', ['my-btn', 'my-btn--payment'], [3, 1, 2, 26]);
-    crtModalBtn('Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 2, 2, 26]);
-
-    crtModalBtn('Изм.ПД', ['my-btn', 'my-btn--data'], [1, 19, 3, 26]);
-    crtModalBtn('Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 20, 2, 26]);
-    crtModalBtn('Удаление', ['my-btn', 'my-btn--data'], [1, 3, 6, 26]);
-    crtModalBtn('Мерж', ['my-btn', 'my-btn--data'], [1, 2, 8, 26]);
-
-    crtModalBtn('Акции 306', ['my-btn'], [5, 5, 2, 26]);
-    crtModalBtn('Ош.Воспр.', ['my-btn'], [4, 10, 12, 26]);
-    crtModalBtn('Кл.Не ответил', ['my-btn'], [10, 1, 1, 26]);
-    crtModalBtn('Пожелание', ['my-btn'], [6, 6, 3, 26]);
-
-    // crtModalBtn('Авария', ['my-btn', 'my-btn--accident'], [7, 117, 70, 26, '#Сбероптимум', 'SBER']);
-
-    function crtModalBtn(value, [first, second = 'no-extra'], selectorPath) {
-        const btn = createElement('button', first, value);
-        btn.classList.add(second);
-
-        btn.addEventListener('click', (event) => {
-            event.preventDefault();
-            fillAppeal(selectorPath);
-        });
-
-        header.appendChild(btn);
-    }
+    setBaseSetup();
+    wrapperButtonsCreator(header);
 }
 
 async function createDeleteButton() {
@@ -154,7 +138,7 @@ async function createDeleteButton() {
 }
 
 async function setOption(selectorPath, selector) {
-    const el = await getMultiLevelThreeElement(selectorPath);
+    const el = await getElement(selectorPath);
     if (el && selector >= 1) {
         el.selectedIndex = selector;
         dispatchEvent('change', el);
@@ -165,22 +149,21 @@ async function setOption(selectorPath, selector) {
 async function fillAppeal(selectorPath) {
     const time = 100;
     const delay = (ms) => {
-        return new Promise(res => {
-            setTimeout(()=>{
-                res()
-            }, ms)
-        })
-
-    }
+        return new Promise((res) => {
+            setTimeout(() => {
+                res();
+            }, ms);
+        });
+    };
 
     try {
         await setOption('#issue_category_0', selectorPath[0]); // category..
-        await delay(time)
+        await delay(time);
         await setOption('#issue_root_cause_reason_0', selectorPath[1]); // reason..
-        await delay(time)
+        await delay(time);
         await setOption('#issue_actions_0', selectorPath[2]); // actions..
         await setOption('#issue_platform_0', selectorPath[3]); // platform..
-        await setOption('#issue_description_0', selectorPath[4] = ''); // description..
+        await setOption('#issue_description_0', (selectorPath[4] = '')); // description..
 
         //setOption('#issue_tags_0', (selectorPath[5] = 0)), // tag..
     } catch (err) {
@@ -204,7 +187,9 @@ const setup = async () => {
         for (item of buttons) {
             switch (item.innerText) {
                 case 'ДОБАВИТЬ ОБРАЩЕНИЕ':
-                    item.addEventListener('click', prefAppeal);
+                    if (!item.parentElement.classList.contains('modal-footer')) {
+                        item.addEventListener('click', prefAppeal);
+                    }
                     break;
                 case 'РЕДАКТИРОВАТЬ ДАННЫЕ':
                     item.addEventListener('click', createDeleteButton);
@@ -371,7 +356,7 @@ async function setEventOnAppeals() {
 const runSetup = async () => {
     state.selector = await getElement('.ng-star-inserted > button');
 
-    if (state.selector.innerText === 'ДОБАВИТЬ ОБРАЩЕНИЕ') {
+    if (state.selector.innerText === 'ДОБАВИТЬ ОБРАЩЕНИЕ' && !state.selector.classList.contains('add-comment')) {
         delete state.selector;
         setup();
         return;

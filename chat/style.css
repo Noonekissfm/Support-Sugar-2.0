@@ -1,6 +1,8 @@
 :root {
-    --main-font-size: 14px;
-    --signs: 13px;
+    --messages: 14px;
+    --main-font-size: 13px;
+    --signs: 12px;
+    --buttons: 12px;
 }
                   /* Темная тема */
 /* ------------------ Сообщения ------------------ */
@@ -13,14 +15,14 @@
 
 .dark .message-group-item__private {
     background-color: #3d2746 !important; 
-    font-size: var(--main-font-size);
+    font-size: var(--messages);
 }
 
     /* -- Операторские -- */    
 
 .dark .message_group__operator .messages-group__message:not(.message-group-item__private) {
     background-color: #3e6284 !important;
-    font-size: var(--main-font-size);
+    font-size: var(--messages);
 }
 
 
@@ -28,7 +30,7 @@
 
 .dark .messages-group__message:not(.message-group-item__private) {
     background-color: #222e3a !important;
-    font-size: var(--main-font-size);
+    font-size: var(--messages);
 }
 
     /* -- Ссылки -- */
@@ -69,21 +71,21 @@
 
 .message-group-item__private {
     background-color: #3fb7ab !important;
-    font-size: var(--main-font-size);
+    font-size: var(--messages);
 }
 
     /* -- Операторские -- */
 
 .message_group__operator .messages-group__message:not(.message-group-item__private) {
     background-color: #92ceb2 !important;
-    font-size: var(--main-font-size);
+    font-size: var(--messages);
 }
 
     /* -- Клиентские -- */
 
 .messages-group__message:not(.message-group-item__private) {
     background-color: #dcead9 !important;
-    font-size: var(--main-font-size);
+    font-size: var(--messages);
 }
 
     /* -- Ссылки -- */
@@ -113,9 +115,12 @@
 
 
 * {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Arial', sans-serif;
     font-display: fallback !important;
-    
+}
+
+#message {
+    font-size: var(--messages);
 }
 
 .has-switch {
@@ -124,7 +129,7 @@
 
 div.chat-body div.last-message {
     font-weight: 500;
-    font-size: var(--signs);
+    font-size: var(--main-font-size);
 }
 
 .messages-group__messages {
@@ -138,9 +143,16 @@ div.chat-body div.last-message {
     color: #ffffffd0 !important;
 }
 
+.right-buttons,
+.right-buttons a,
+.right-buttons a span,
+.right-buttons button,
+#button_assign_next_chat span {
+    font-size: var(--buttons);
+}
+
 .chat-message__date,
 #online-status-switch span,
-#button_assign_next_chat span,
 .panel-body.form-horizontal.browser-panel p {
     font-size: var(--signs);
 }
@@ -235,8 +247,10 @@ h3.client-h3 {
 .timerButton {
     -webkit-appearance: none !important;
 
+    box-sizing: border-box;
+
     text-align: center;
-    line-height: 4px;
+    vertical-align: middle;
 
     cursor: pointer;
     display: inline-block;
@@ -248,12 +262,12 @@ h3.client-h3 {
     border-radius: 3px;
 
     color: #737881;
-    font-size: var(--main-font-size);
-    font-weight: 500;
+    font-size: var(--signs);
+    line-height: 1px;
     min-height: 20px;
     min-width: 20px;
 
-    padding: 8px 4px;
+    padding-top: 1px;
     margin: 3px 3px;
 
     transition: all 0.3s ease;
@@ -325,7 +339,7 @@ h3.client-h3 {
     color: #e8e6e3;
     background-color: #1885b2;
 
-    font-size: var(--signs);
+    font-size: var(--buttons);
     font-weight: 400;
     min-height: 20px;
     min-width: 20px;
