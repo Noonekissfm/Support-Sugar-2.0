@@ -18,6 +18,7 @@ function injectFonts() {
 
 const state = {
     chats: [],
+    chatsFlag: true,
 };
 
 function checkTheme() {

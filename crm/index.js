@@ -14,22 +14,21 @@ const getElement = (selector) =>
 
             const el = document.querySelector(selector);
 
-            if (el && el === document.querySelector(selector)) {
+            if (el) {
                 clearInterval(timer);
                 return resolve(el);
             }
-
             count++;
         }, 10);
     });
 
 const getElements = async (selector) => {
     return new Promise((resolve, reject) => {
-        const count = 0;
+        let count = 0;
 
-        const intervalId = setInterval(() => {
+        const interval = setInterval(() => {
             if (count === 1000) {
-                clearInterval(intervalId);
+                clearInterval(interval);
                 return reject(new Error('getElements timeOut...'));
             }
 
@@ -39,56 +38,63 @@ const getElements = async (selector) => {
                 count++;
                 return;
             }
-            clearInterval(intervalId);
+            clearInterval(interval);
             return resolve(elements);
         }, 10);
     });
 };
 
-const generalAppeal = async () => {
+const setEventOnAddAppealButton = async () => {
+    // set event on 'add appeal' button in main crm window
     const addAppealButton = await getElement('.nav-link.nav-text.add-comment');
 
     if (addAppealButton.innerText !== 'Добавить обращение') {
         return;
     }
-
     addAppealButton.addEventListener('click', prefAppeal);
 };
 
-generalAppeal();
+setEventOnAddAppealButton();
 
-async function actualIssue() {
+async function createJiraTaskTemplateButton() {
+    const jiraInput = await getElement('#jira_task');
+    const btn = createElement('button', ['my-btn', 'my-btn--payment'], 'Шаблон ссылки');
+
+    btn.addEventListener('click', (event) => {
+        event.preventDefault();
+        jiraInput.value = 'https://secure.usedesk.ru/tickets/НомерЗаявки';
+    });
+
+    jiraInput.parentNode.append(btn);
+}
+
+async function forceActualIssueCheckbox() {
     const actualIssue = await getElement('#is_actual_issue_0');
-    if (actualIssue.checked != true) {
+    if (!actualIssue.checked) {
         actualIssue.checked = true;
         dispatchEvent('change', actualIssue);
     }
-
-    const inputText = await getElement('#jira_task');
-    const btn = createElement('button', 'my-btn', '...');
-    btn.classList.add('my-btn--payment');
-
-    btn.addEventListener('click', (event) => {
-        event.preventDefault();
-        inputText.value = 'https://secure.usedesk.ru/tickets/НомерЗаявки';
-    });
-
-    inputText.parentNode.append(btn);
 }
 
 async function setBaseSetup() {
-    await setChannel();
-    await setOption('#issue_product_0', 1);
-    await actualIssue();
+    state.counter++
+    console.log(state.counter)
+    try {
+        await setAppealChannel();
+        // set 'product' option to 'film'
+        await setOption('#issue_product_0', 1);
+        await forceActualIssueCheckbox();
+        await createJiraTaskTemplateButton();
+    } catch (err) {
+        console.log(err);
+    }
 }
 
-function createAutofillAppealButton(parent, value, [first, second = 'no-extra'], selectorPath) {
-    const btn = createElement('button', first, value);
-    btn.classList.add(second);
+function createAutofillAppealButton(parent, value, classes, selectors) {
+    const btn = createElement('button', classes, value);
 
-    btn.addEventListener('click', (event) => {
-        event.preventDefault();
-        fillAppeal(selectorPath);
+    btn.addEventListener('click', () => {
+        fillAppeal(selectors);
     });
 
     parent.appendChild(btn);
@@ -113,7 +119,7 @@ function wrapperButtonsCreator(parent) {
         ['Пожелание', ['my-btn'], [6, 6, 3, 26]],
     ];
 
-    for(item of buttonsConfig) {
+    for (item of buttonsConfig) {
         createAutofillAppealButton(parent, ...item);
     }
 }
@@ -131,8 +137,11 @@ async function prefAppeal() {
 }
 
 async function createDeleteButton() {
+    if(document.querySelector('button.delete-button')) {
+        return
+    }
     const element = await getElement('.modal-content-wrapper .modal-footer');
-    const btn = createElement('div', 'delete-button', 'Удалить');
+    const btn = createElement('button', ['delete-button'], 'Удалить');
     btn.addEventListener('click', setupForDelete);
     element.prepend(btn);
 }
@@ -146,31 +155,31 @@ async function setOption(selectorPath, selector) {
     }
 }
 
-async function fillAppeal(selectorPath) {
-    const time = 100;
-    const delay = (ms) => {
-        return new Promise((res) => {
-            setTimeout(() => {
-                res();
-            }, ms);
-        });
-    };
+const delay = (ms) => {
+    return new Promise((res) => {
+        setTimeout(() => {
+            res();
+        }, ms);
+    });
+};
 
+async function fillAppeal(selectors) {
     try {
-        await setOption('#issue_category_0', selectorPath[0]); // category..
-        await delay(time);
-        await setOption('#issue_root_cause_reason_0', selectorPath[1]); // reason..
-        await delay(time);
-        await setOption('#issue_actions_0', selectorPath[2]); // actions..
-        await setOption('#issue_platform_0', selectorPath[3]); // platform..
-        await setOption('#issue_description_0', (selectorPath[4] = '')); // description..
+        await setOption('#issue_category_0', selectors[0]); // category..
+        await delay(100);
+        await setOption('#issue_root_cause_reason_0', selectors[1]); // reason..
+        await delay(100);
+        await setOption('#issue_actions_0', selectors[2]); // actions..
+        await setOption('#issue_platform_0', selectors[3]); // platform..
+        // await setOption('#issue_description_0', (selectors[4] = null)); // description..
 
-        //setOption('#issue_tags_0', (selectorPath[5] = 0)), // tag..
+        //setOption('#issue_tags_0', (selectors[5] = 0)), // tag..
     } catch (err) {
         console.log(err);
     }
 }
-const appealsButton = () => {
+
+const getAppealsButton = () => {
     const el = document.querySelectorAll('a');
 
     if (el[15].innerText === 'Обращения и Автокомментарии') {
@@ -180,31 +189,38 @@ const appealsButton = () => {
     }
 };
 
+async function setEventOnButtons() {
+    const buttons = document.querySelectorAll('.ng-star-inserted button');
+    for (item of buttons) {
+        switch (item.innerText) {
+            case 'ДОБАВИТЬ ОБРАЩЕНИЕ':
+                if (!item.parentElement.classList.contains('modal-footer')) {
+                    item.addEventListener('click', prefAppeal);
+                }
+                break;
+            case 'РЕДАКТИРОВАТЬ ДАННЫЕ':
+                item.addEventListener('click', createDeleteButton);
+                break;
+            default:
+                break;
+        }
+    }
+}
+
 const setup = async () => {
     try {
-        const buttons = document.querySelectorAll('.ng-star-inserted button');
-
-        for (item of buttons) {
-            switch (item.innerText) {
-                case 'ДОБАВИТЬ ОБРАЩЕНИЕ':
-                    if (!item.parentElement.classList.contains('modal-footer')) {
-                        item.addEventListener('click', prefAppeal);
-                    }
-                    break;
-                case 'РЕДАКТИРОВАТЬ ДАННЫЕ':
-                    item.addEventListener('click', createDeleteButton);
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        const appeals = appealsButton();
-        appeals.addEventListener('click', setEventOnAppeals);
+        setEventOnButtons();
+        const appealsButton = getAppealsButton();
+        appealsButton.addEventListener('click', setupForAppealsPage);
     } catch (error) {
         console.log('Something went wrong...');
     }
 };
+
+async function setupForAppealsPage() {
+    await forceRadioButton();
+    await setEventOnEditAppealButton();
+}
 
 function setupForDelete() {
     const user = {
@@ -277,7 +293,7 @@ function setupForDelete() {
     const id = document.querySelector('.clr-col-lg-5 .table-vertical tr');
 
     if (!id) {
-        user.ID = prompt('Не удалось найти номер счёта на странице, пожалуйста введи его: ');
+        user.ID = prompt('Не удалось найти номер счёта на странице, пожалуйста, введи его: ');
     } else {
         user.ID = id.children[1].innerText;
     }
@@ -288,25 +304,25 @@ function setupForDelete() {
     dispatchEvent('input', user.inputs.email);
 }
 
-async function setChannel() {
+async function setAppealChannel() {
     const channel = await getElement('#appeal_channel');
     if (channel) {
         if (!channel.value) {
             channel.value = localStorage.getItem('appeal_channel');
             dispatchEvent('change', channel);
-            channel.addEventListener('change', saveChannel);
+            channel.addEventListener('change', saveAppealChannel);
         }
     } else {
-        setChannel();
+        setAppealChannel();
     }
 }
 
-async function saveChannel() {
+async function saveAppealChannel() {
     try {
         const channel = await getElement('#appeal_channel');
         localStorage.setItem('appeal_channel', channel.value);
 
-        const element = createElement('span', 'channel-save', 'Канал сохранен..');
+        const element = createElement('span', ['channel-save'], 'Канал сохранен..');
         channel.parentNode.parentNode.append(element);
         setTimeout(() => {
             element.remove();
@@ -316,10 +332,16 @@ async function saveChannel() {
     }
 }
 
-function createElement(tag, className, innerText) {
-    const el = document.createElement(tag);
-    el.classList.add(className);
+function createElement(htmlTag, classes, innerText) {
+    const el = document.createElement(htmlTag);
+    el.classList.add(...classes);
     el.innerText = innerText;
+
+    if(el.tagName === 'BUTTON') {
+        el.addEventListener('click', (event)=>{
+            event.preventDefault();
+        })
+    }
     return el;
 }
 
@@ -328,15 +350,24 @@ function dispatchEvent(event, element) {
     element.dispatchEvent(e);
 }
 
-async function setEventOnAppeals() {
-    const radio = await getElements('input[type="radio"]');
-
-    if (radio) {
-        if (radio[1].nextElementSibling.innerText === 'Обращения') {
-            radio[1].click();
-        }
+async function forceRadioButton() {
+    const radioButtonsCollection = await getElements('input[type="radio"]');
+    if (!radioButtonsCollection) {
+        return
     }
 
+    try {
+        for(button of radioButtonsCollection) {
+            if(button.nextElementSibling.innerText === 'Обращения') {
+                button.click();
+            }
+        }
+    } catch (error) {
+        console.log(error)
+    }
+}
+
+async function setEventOnEditAppealButton() {
     const timer = setTimeout(() => {
         const appeals = document.querySelectorAll('.card-footer button.ng-star-inserted');
         if (appeals.length === 0) {
