@@ -78,7 +78,6 @@ async function forceActualIssueCheckbox() {
 
 async function setBaseSetup() {
     state.counter++
-    console.log(state.counter)
     try {
         await setAppealChannel();
         // set 'product' option to 'film'
@@ -104,7 +103,7 @@ function wrapperButtonsCreator(parent) {
     const buttonsConfig = [
         ['Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 5, 1, 26]],
         ['Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 5, 2, 26]],
-        ['Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 5, 9, 26]],
+        ['Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 5, 9, 26, 'Консультация по списанию']],
         ['Неж.Спис.Мерж', ['my-btn', 'my-btn--payment'], [2, 7, 10, 26]],
         ['Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 3, 1, 26]],
         ['Ош.Оплата БК', ['my-btn', 'my-btn--payment'], [3, 1, 2, 26]],
@@ -154,6 +153,21 @@ async function setOption(selectorPath, selector) {
         return;
     }
 }
+async function setDescription(selectorPath, selector) {
+    try {
+        const el = await getElement(selectorPath);
+        if (!el) return
+
+        el.value = selector;
+
+        dispatchEvent('change', el)
+    
+        return 
+    } catch (err) {
+        console.log(err)
+    }
+
+}
 
 const delay = (ms) => {
     return new Promise((res) => {
@@ -171,9 +185,9 @@ async function fillAppeal(selectors) {
         await delay(100);
         await setOption('#issue_actions_0', selectors[2]); // actions..
         await setOption('#issue_platform_0', selectors[3]); // platform..
-        // await setOption('#issue_description_0', (selectors[4] = null)); // description..
-
-        //setOption('#issue_tags_0', (selectors[5] = 0)), // tag..
+        if (selectors[4]) {
+            await setDescription('#issue_description_0', selectors[4]); // description..
+        } 
     } catch (err) {
         console.log(err);
     }
