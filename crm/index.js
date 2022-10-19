@@ -101,8 +101,8 @@ function createAutofillAppealButton(parent, value, classes, selectors) {
 
 function wrapperButtonsCreator(parent) {
     const buttonsConfig = [
-        ['Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 5, 1, 26]],
-        ['Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 5, 2, 26]],
+        ['Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 6, 1, 26]],
+        ['Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 6, 2, 26]],
         ['Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 5, 9, 26, 'Консультация по списанию']],
         ['Неж.Спис.Мерж', ['my-btn', 'my-btn--payment'], [2, 7, 10, 26]],
         ['Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 3, 1, 26]],
