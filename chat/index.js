@@ -6,6 +6,7 @@ window.addEventListener('keydown', (e) => {
     hotKeys(e);
 });
 
+
 function injectFonts() {
     const head = document.querySelector('head');
 

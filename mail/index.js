@@ -1,17 +1,8 @@
 window.setTimeout(createStatusesBlock, 1);
 window.setTimeout(switchStatus, 1000)
-window.addEventListener('load', injectFonts);
 
-
-function injectFonts() {
-    const head = document.querySelector('head');
-
-    head.innerHTML += `
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
-    `
-    return;
-}
+let audioURL = 'https://djlunatique.com/wp-admin/admin-ajax.php?action=useyourdrive-stream&account_id=116134506342930495504&id=1hzNgvBXdFV9UZbqqNaiRjsekBUZYc39L&dl=1&listtoken=a7e54566abe6cf2afe51d5ae01570a2e'
+const audio = new Audio(audioURL)
 
 const state = {};
 
@@ -125,8 +116,6 @@ function switchStatus() {
     if (switcher.hasAttribute('checked')) {
         switcher.click();
     }
-
-
 
     state.breakTimer = setInterval(() => {
         if (Date.now() >= breakEnd) {
@@ -246,6 +235,9 @@ const showLists = () => {
 
 showLists();
 
+ // TODO:
+ // Add functionality to play sound on page refresh
+
 async function autoUpdate() {
     const MINUTES = 3;
     if (localStorage.getItem('autoUpdate') != 'true') {
@@ -256,8 +248,12 @@ async function autoUpdate() {
     button.classList.add('autoUpdateButton_active')
 
     setTimeout(() => {
+        audio.play();
+    }, 5000 * MINUTES);
+
+    setTimeout(() => {
         location.reload();
-    }, 60000 * MINUTES);
+    }, 6000 * MINUTES);
 }
 
 autoUpdate()
