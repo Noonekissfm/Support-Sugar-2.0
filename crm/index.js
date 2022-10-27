@@ -81,11 +81,12 @@ async function setCompleteStatusToIssue(isComplete) {
 
     if(!actualIssue) return
 
-    if(isComplete) {
-        actualIssue.selectedIndex = 0;
-    } else {
-        actualIssue.selectedIndex = 1
-    }
+    /**
+     * There is yes === 0 and no === 1, that's why is boolean reversed below
+     */
+
+    actualIssue.selectedIndex = !+isComplete
+
     dispatchEvent('change', actualIssue)
 }
 
@@ -107,9 +108,7 @@ function createAutofillAppealButton(parent, value, classes, selectors, isComplet
 
     btn.addEventListener('click', () => {
         fillAppeal(selectors);
-        if (!isComplete) {
-            setCompleteStatusToIssue(isComplete);
-        }
+        setCompleteStatusToIssue(isComplete);
     });
 
     parent.appendChild(btn);
@@ -117,21 +116,21 @@ function createAutofillAppealButton(parent, value, classes, selectors, isComplet
 
 function wrapperButtonsCreator(parent) {
     const buttonsConfig = [
-        ['Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 6, 1, 26]],
-        ['Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 6, 2, 26]],
-        ['Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 5, 9, 26, 'Консультация по списанию']],
-        ['Неж.Спис.Мерж', ['my-btn', 'my-btn--payment'], [2, 7, 10, 26]],
-        ['Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 3, 1, 26]],
-        ['Ош.Оплата БК', ['my-btn', 'my-btn--payment'], [3, 1, 2, 26]],
-        ['Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 2, 2, 26]],
-        ['Изм.ПД', ['my-btn', 'my-btn--data'], [1, 19, 3, 26]],
-        ['Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 20, 2, 26]],
-        ['Удаление', ['my-btn', 'my-btn--data'], [1, 3, 6, 26]],
-        ['Мерж', ['my-btn', 'my-btn--data'], [1, 2, 8, 26]],
-        ['Акции 306', ['my-btn'], [5, 5, 2, 26]],
-        ['Ош.Воспр.', ['my-btn'], [4, 10, 12, 26]],
+        ['Возвр.БК', ['my-btn', 'my-btn--payment'], [2, 6, 1, 26], true],
+        ['Возвр.ЛС', ['my-btn', 'my-btn--payment'], [2, 6, 2, 26], true],
+        ['Неж.Спис.Конс', ['my-btn', 'my-btn--payment'], [2, 5, 9, 26, 'Консультация по списанию'], true],
+        ['Неж.Спис.Мерж', ['my-btn', 'my-btn--payment'], [2, 7, 10, 26], true],
+        ['Отмена.АП', ['my-btn', 'my-btn--payment'], [7, 3, 1, 26], true],
+        ['Ош.Оплата БК', ['my-btn', 'my-btn--payment'], [3, 1, 2, 26], true],
+        ['Опл.Спасибо', ['my-btn', 'my-btn--payment'], [3, 2, 2, 26], true],
+        ['Изм.ПД', ['my-btn', 'my-btn--data'], [1, 19, 3, 26], true],
+        ['Откл.Уст.', ['my-btn', 'my-btn--data'], [1, 20, 2, 26], true],
+        ['Удаление', ['my-btn', 'my-btn--data'], [1, 3, 6, 26], true],
+        ['Мерж', ['my-btn', 'my-btn--data'], [1, 2, 8, 26], true],
+        ['Акции 306', ['my-btn'], [5, 5, 2, 26], true],
+        ['Ош.Воспр.', ['my-btn'], [4, 10, 12, 26], true],
         ['Кл.Не ответил', ['my-btn'], [10, 1, 1, 26], false],
-        ['Пожелание', ['my-btn'], [6, 6, 3, 26]],
+        ['Пожелание', ['my-btn'], [6, 6, 3, 26], true],
     ];
 
     for (item of buttonsConfig) {
