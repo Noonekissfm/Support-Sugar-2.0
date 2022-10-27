@@ -70,10 +70,23 @@ async function createJiraTaskTemplateButton() {
 
 async function forceActualIssueCheckbox() {
     const actualIssue = await getElement('#is_actual_issue_0');
-    if (!actualIssue.checked) {
-        actualIssue.checked = true;
+    if (!actualIssue.selectedIndex) {
+        actualIssue.selectedIndex = 0;
         dispatchEvent('change', actualIssue);
     }
+}
+
+async function setCompleteStatusToIssue(isComplete) {
+    const actualIssue = await getElement('#is_actual_issue_0');
+
+    if(!actualIssue) return
+
+    if(isComplete) {
+        actualIssue.selectedIndex = 0;
+    } else {
+        actualIssue.selectedIndex = 1
+    }
+    dispatchEvent('change', actualIssue)
 }
 
 async function setBaseSetup() {
@@ -89,11 +102,14 @@ async function setBaseSetup() {
     }
 }
 
-function createAutofillAppealButton(parent, value, classes, selectors) {
+function createAutofillAppealButton(parent, value, classes, selectors, isComplete) {
     const btn = createElement('button', classes, value);
 
     btn.addEventListener('click', () => {
         fillAppeal(selectors);
+        if (!isComplete) {
+            setCompleteStatusToIssue(isComplete);
+        }
     });
 
     parent.appendChild(btn);
@@ -114,7 +130,7 @@ function wrapperButtonsCreator(parent) {
         ['Мерж', ['my-btn', 'my-btn--data'], [1, 2, 8, 26]],
         ['Акции 306', ['my-btn'], [5, 5, 2, 26]],
         ['Ош.Воспр.', ['my-btn'], [4, 10, 12, 26]],
-        ['Кл.Не ответил', ['my-btn'], [10, 1, 1, 26]],
+        ['Кл.Не ответил', ['my-btn'], [10, 1, 1, 26], false],
         ['Пожелание', ['my-btn'], [6, 6, 3, 26]],
     ];
 
