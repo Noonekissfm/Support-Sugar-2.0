@@ -249,11 +249,11 @@ async function autoUpdate() {
 
     setTimeout(() => {
         audio.play();
-    }, 5000 * MINUTES);
+    }, 59700 * MINUTES);
 
     setTimeout(() => {
         location.reload();
-    }, 6000 * MINUTES);
+    }, 60000 * MINUTES);
 }
 
 autoUpdate()
