@@ -7,6 +7,53 @@ window.addEventListener('keydown', (e) => {
 });
 
 
+
+const createBookmarkPanelButton = (url, text, target) => {
+    const button = document.createElement('div')
+    button.classList.add('bookmark__panel__button__container')
+    button.innerHTML = `<a href='${url}' target='${target}'><button class='bookmark__panel__button'>${text}</button></a>`;
+    return button
+}
+
+const dataForBookmarkPanel = [
+    {
+        url: 'https://ip.cdnvideo.ru/',
+        target: '_blank',
+        text: 'CDN Video',
+    },
+    {
+        url: 'https://www.maxmind.com/en/geoip2-precision-demo',
+        target: '_blank',
+        text: 'MaxMind',
+    },
+    {
+        url: 'https://docs.google.com/forms/d/e/1FAIpQLSdCXcneagBUCpCk52wVIZy0vQcveOU_gotoZ__9HjrO0nzZUQ/viewform',
+        target: '_blank',
+        text: 'Добавить контент',
+    },
+    {
+        url: 'https://www.kinopoisk.ru/',
+        target: '_blank',
+        text: 'КиноПоиск',
+    },
+]
+
+const bookmarkPanel = () => {
+    const panel = document.createElement('div');
+    panel.classList.add('bookmark__panel');
+
+    const buttons = dataForBookmarkPanel.map(item => {
+        return createBookmarkPanelButton(item.url, item.text, item.target)
+    })
+
+    panel.append(...buttons);
+
+    document.querySelector('body').append(panel)
+}
+
+bookmarkPanel();
+
+
 function injectFonts() {
     const head = document.querySelector('head');
 
