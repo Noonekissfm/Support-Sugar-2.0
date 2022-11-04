@@ -6,8 +6,6 @@ window.addEventListener('keydown', (e) => {
     hotKeys(e);
 });
 
-
-
 const createBookmarkPanelButton = (url, text, target) => {
     const button = document.createElement('div')
     button.classList.add('bookmark__panel__button__container')
@@ -394,6 +392,8 @@ const createModal = () => {
     modal.classList.add('modal_backdrop')
     modal.addEventListener('click', (e)=>{
         if (e.currentTarget === modal) {
+            clearInterval(state.renewalDataTimer)
+            delete state.renewalDataTimer;
             modal.remove();
         } 
     })
@@ -413,7 +413,9 @@ const formateData = async () => {
     const data = await getChats();
 
     const names = new Set(data.map((item) => item.assignee_name));
-    const namesArr = Array.from(names);
+    const namesArr = Array.from(names).sort();
+
+    let newState = '';
 
     for (let i = 0; i < namesArr.length; i++) {
         let chatsHTML = '';
@@ -432,8 +434,10 @@ const formateData = async () => {
             </div>
         </div>
         `;
-        modal.innerHTML += html;
+
+        newState += html;
     }
+    modal.innerHTML = newState;
 };
 
 const createCheckChatsButton = async () => {
@@ -450,6 +454,9 @@ const createCheckChatsButton = async () => {
         if (!modal) {
             createModal();
             formateData();
+            state.renewalDataTimer = setInterval(() => {
+                formateData();
+            }, 3000);
             return;
         }
         modal.remove();
