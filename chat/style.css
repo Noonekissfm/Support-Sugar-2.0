@@ -318,7 +318,7 @@ h3.client-h3 {
 
 .sidebar-menu {
     position: absolute !important;
-    transform: translateX(-65px);
+    transform: translateX(-66px);
 }
 
 .toggle-menu {
@@ -366,21 +366,36 @@ h3.client-h3 {
     background-color: #1e9acf;
 }
 
+.modal_backdrop {
+    position: absolute;
+
+    display: flex;
+    vertical-align: middle;
+    align-items: center;
+    justify-content: center;
+
+    top: 0;
+    left: 0;
+
+    width: 100vw;
+    height: 100vh;
+
+    background-color: #000000bf;
+
+    z-index: 99999;
+
+}
+
 .chats_modal {
     display: flex;
     flex-wrap: wrap;
     position: absolute;
-
-    top: 25px;
-    left: 12.5%;
 
     padding: 5px;
 
     max-width: 1115px;
     width: fit-content;
     min-height: fit-content;
-
-    z-index: 10001;
 
     background-color: rgb(225, 225, 225);
     border: 2px solid rgb(255, 255, 255);

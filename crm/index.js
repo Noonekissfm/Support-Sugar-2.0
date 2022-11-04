@@ -424,3 +424,42 @@ const runSetup = async () => {
 };
 
 setInterval(runSetup, 500);
+
+
+
+
+
+
+
+
+
+
+// const emailName = email.split('@')[0]
+// const maskedName = [];
+
+
+
+// if (emailName.length >= 6) {
+    
+//     for(let i = 0; i < 2; i++) {
+//         maskedName.push(emailName[i])
+//     }
+//     for(let i = 0; i < 3; i++) {
+//         maskedName.push('*')
+//     }
+//     for(let i = emailName.length-2; i < emailName.length; i++) {
+//         maskedName.push(emailName[i])
+//     }
+// }
+
+// if (emailName.length < 6) {
+//     for(let i = 0; i < 1; i++) {
+//         maskedName.push(emailName[i])
+//     }
+//     for(let i = 0; i < 3; i++) {
+//         maskedName.push('*')
+//     }
+//     for(let i = emailName.length-1; i < emailName.length; i++) {
+//         maskedName.push(emailName[i])
+//     }
+// }

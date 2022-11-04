@@ -391,9 +391,15 @@ const getChats = async () => {
 
 const createModal = () => {
     const modal = document.createElement('div');
+    modal.classList.add('modal_backdrop')
+    modal.addEventListener('click', (e)=>{
+        if (e.currentTarget === modal) {
+            modal.remove();
+        } 
+    })
     modal.innerHTML = `
     <div class=chats_modal>
-        
+            
     </div>
     `;
     document.body.append(modal);
@@ -401,6 +407,8 @@ const createModal = () => {
 
 const formateData = async () => {
     const modal = document.querySelector('.chats_modal');
+
+    modal.addEventListener('click', (e) => e.stopPropagation());
 
     const data = await getChats();
 
