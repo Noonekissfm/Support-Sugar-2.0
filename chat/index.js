@@ -388,27 +388,29 @@ const getChats = async () => {
 };
 
 const createModal = () => {
-    const modal = document.createElement('div');
-    modal.classList.add('modal_backdrop')
-    modal.addEventListener('click', (e)=>{
-        if (e.currentTarget === modal) {
+    const modal_backdrop = document.createElement('div');
+    modal_backdrop.classList.add('modal_backdrop')
+    modal_backdrop.addEventListener('click', (e)=>{
+        if (e.currentTarget === modal_backdrop) {
             clearInterval(state.renewalDataTimer)
             delete state.renewalDataTimer;
-            modal.remove();
+            modal_backdrop.remove();
         } 
     })
-    modal.innerHTML = `
-    <div class=chats_modal>
-            
-    </div>
+
+    const modal_chats = document.createElement('div');
+    modal_chats.classList.add('chats_modal');
+    modal_chats.innerHTML = `
+    <span class=chats_modal_loading>Загрузка данных...</span>
     `;
-    document.body.append(modal);
+    modal_chats.addEventListener('click', (e) => e.stopPropagation())
+
+    modal_backdrop.append(modal_chats)
+    document.body.append(modal_backdrop);
 };
 
 const formateData = async () => {
     const modal = document.querySelector('.chats_modal');
-
-    modal.addEventListener('click', (e) => e.stopPropagation());
 
     const data = await getChats();
 
@@ -422,7 +424,9 @@ const formateData = async () => {
         for (let j = 0; j < data.length; j++) {
             if (namesArr[i] === data[j].assignee_name) {
                 chatsHTML += `<a href="https://secure.usedesk.ru/tickets/${data[j].ticket_id}" target="_blank">
-                    <button id=chat_id>${data[j].ticket_id}</button>
+                    <button id=chat_id>
+                        <span>${data[j].ticket_id}</span>
+                    </button>
                 </a>`;
             }
         }

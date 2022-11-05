@@ -3,27 +3,39 @@
     --main-font-size: 13px;
     --signs: 12px;
     --buttons: 12px;
+
+    /*Colors*/
+
+    --client__message--light:  #333a4ad5;
+    --operator__message--light:  #bec6d8;
+    --utils-and-chat-buttons--light:  #e25a77c7;
+
+    --client__message--dark:  #222e3a;
+    --operator__message--dark:  #3e6284;
+    --utils-and-chat-buttons--dark:  #3d2746;
 }
 
 /* Темная тема */
 /* ------------------ Сообщения ------------------ */
 
 .dark .messages-group__messages,
-.dark .chat-message__name-of-responder {
+.dark .chat-message__name-of-responder,
+.dark .chat-message__text-container,
+.dark .messages-group__message-footer {
     color: #f0f0f0 !important;
 }
 
 /* -- Комментари и Сервисные -- */
 
 .dark .message-group-item__private {
-    background-color: #3d2746 !important;
+    background-color: var(--utils-and-chat-buttons--dark) !important;
     font-size: var(--messages);
 }
 
 /* -- Операторские -- */
 
 .dark .message_group__operator .messages-group__message:not(.message-group-item__private) {
-    background-color: #3e6284 !important;
+    background-color: var(--operator__message--dark) !important;
     font-size: var(--messages);
 }
 
@@ -31,7 +43,7 @@
 /* -- Клиентские -- */
 
 .dark .messages-group__message:not(.message-group-item__private) {
-    background-color: #222e3a !important;
+    background-color: var(--client__message--dark) !important;
     font-size: var(--messages);
 }
 
@@ -57,60 +69,71 @@
 /* Кнопки чата */
 
 .dark .chat-custom-button {
-    background-color: #2297ba !important;
+    background-color: var(--utils-and-chat-buttons--dark) !important;
 }
 
 /* Светлая тема */
+
 /* ------------------ Сообщения ------------------ */
 
 
-.messages-group__messages,
 .chat-message__name-of-responder {
-    color: #000 !important;
+    color: #262626 !important;
 }
 
 /* -- Комментари и Сервисные -- */
 
 .message-group-item__private {
-    background-color: #3fb7ab !important;
+    background-color: var(--utils-and-chat-buttons--light) !important;
     font-size: var(--messages);
 }
 
 /* -- Операторские -- */
 
 .message_group__operator .messages-group__message:not(.message-group-item__private) {
-    background-color: #92ceb2 !important;
+    background-color: var(--operator__message--light) !important;
+    color: #262626;
     font-size: var(--messages);
 }
 
 /* -- Клиентские -- */
 
 .messages-group__message:not(.message-group-item__private) {
-    background-color: #dcead9 !important;
+    background-color: var(--client__message--light) !important;
+    color: #ffffffef;
     font-size: var(--messages);
+}
+
+.messages-group-list.message_group__client .chat-message__name-of-responder {
+    color: #ffffffef !important;
 }
 
 /* -- Ссылки -- */
 
 .messages-group__messages a {
-    color: #000 !important;
+    color: #fff !important;
     font-size: var(--main-font-size);
 }
 
 .messages-group__messages a:hover {
-    color: #000 !important;
+    color: #ffffffbf !important;
     text-decoration: underline;
 }
 
 /* -- Правый сайдбар -- */
 
 #right_resize_container>div.panel.panel-primary.chat__client>div.panel-body.form-horizontal.browser-panel {
-    background-color: #3fb7ab;
+    background-color: var(--utils-and-chat-buttons--light);
     color: #000;
 }
 
 .chat-custom-button {
-    background-color: #3fb7ab !important;
+    background-color: var(--utils-and-chat-buttons--light) !important;
+    box-shadow: rgba(0, 0, 0, 0.376) 3px 3px 6px 0px;
+}
+
+.messages-group__message.chat-message__text {
+    box-shadow: 3px 3px 6px 0px #00000060;
 }
 
 /*  =============================================  */
@@ -132,6 +155,10 @@
 div.chat-body div.last-message {
     font-weight: 500;
     font-size: var(--main-font-size);
+}
+
+.messages-group {
+    padding: 10px 0 !important;
 }
 
 .messages-group__messages {
@@ -296,25 +323,7 @@ h3.client-h3 {
     filter: blur(3px);
 }
 
-.toggleButton {
-    width: 10px;
-    height: 40px;
-    background-color: #262b34;
-    position: absolute;
-
-    right: -10px;
-    top: 0;
-
-    margin-top: 50vh;
-    padding: 0;
-
-    border: 1px solid;
-    /* border-left: none; */
-    border-color: #a49d914b;
-    border-bottom-right-radius: 3px;
-    border-top-right-radius: 3px;
-    border-left: none;
-}
+/* === Левая панель === */
 
 .sidebar-menu {
     position: absolute !important;
@@ -325,6 +334,35 @@ h3.client-h3 {
     position: relative !important;
     transform: translateX(0);
 }
+
+.toggleButton {
+    width: 12px;
+    height: 46px;
+    position: absolute;
+
+    background-color: inherit;
+
+    right: -12px;
+    top: 0;
+
+    margin-top: 50vh;
+    padding: 0;
+
+    border: 1px solid;
+    border-color: #a49d914b;
+    border-left: none;
+
+    outline: none;
+}
+
+.toggle-menu > .toggleButton {
+    width: 10px;
+    right: -10px;
+}
+
+/* ===================== */
+
+/* === Кнопка: Чаты операторов === */
 
 .checkChatsButton {
     -webkit-appearance: none !important;
@@ -366,6 +404,11 @@ h3.client-h3 {
     background-color: #1e9acf;
 }
 
+/* =============================== */
+
+
+/* ======= Модалка ====== */
+
 .modal_backdrop {
     position: absolute;
 
@@ -397,9 +440,17 @@ h3.client-h3 {
     width: fit-content;
     min-height: fit-content;
 
-    background-color: rgb(225, 225, 225);
-    border: 2px solid rgb(255, 255, 255);
-    border-radius: 3px;
+    background-color: #efefef;
+    border: 2px solid #e5e5e5;
+    border-radius: 3px; 
+}
+
+.chats_modal_loading {
+    font-family: Arial, sans-serif;
+    color: #28282853;
+    font-size: 3rem;
+    font-style: italic;
+    padding: 20px;
 }
 
 .operator_card {
@@ -411,10 +462,11 @@ h3.client-h3 {
     margin: 5px;
 
     border-radius: 4px;
+    border: 1px solid rgba(0, 0, 0, 0.125);
 
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.41);
+    box-shadow: 1px 1px 2px #00000069;
 
-    background-color: #fff;
+    background-color: var(--operator__message--light);
 
     transition: all 0.3ms;
 }
@@ -425,21 +477,22 @@ h3.client-h3 {
 
 .operator_name {
     display: flex;
+    text-align: center;
+
+    width: fit-content;
+
     margin: 0 auto;
     margin-bottom: 10px;
     padding: 5px 10px;
 
-    color: #17806d;
+    background-color: var(--utils-and-chat-buttons--light);
+    
+    color: #fff;
     font-size: var(--signs);
 
     border-radius: 4px;
-    border: 1px solid #17806d;
 
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.41);
-
-    height: 30px;
-    width: fit-content;
-
+    box-shadow: 1px 1px 2px #00000069;
 }
 
 .operator_chats {
@@ -459,17 +512,23 @@ h3.client-h3 {
 
     width: 80px;
 
-    border: 1px solid #17806d;
     border-radius: 4px;
+    border: none;
 
     padding: 5px 5px;
     margin: 2px 3px;
 
-    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.41);
+    box-shadow: 1px 1px 2px #00000069;
 
-    background-color: #17806d;
+    background-color: var(--client__message--light);
     color: #e8e6e3;
 
+    transition: all 0.2s linear;
+}
+
+#chat_id:hover {
+    background-color: #1e9f87;
+    transform: scale(1.04);
 }
 
 #chat_id:active {
@@ -481,6 +540,10 @@ h3.client-h3 {
     border: 2px solid #fff;
     border-radius: 10px;
 }
+
+/* ====================== */
+
+/* ======= Панель закладок ====== */
 
 .bookmark__panel {
     display: flex;
@@ -530,3 +593,5 @@ h3.client-h3 {
     opacity: 1;
     transform: scale(1.2) translateX(-25px) translateY(27px);
 }
+
+/* ============================== */
