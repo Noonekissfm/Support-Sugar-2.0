@@ -466,23 +466,34 @@ html[data-darkreader-scheme="dark"] .checkChatsButton:hover {
 }
 
 .chats_modal {
-    display: flex;
-    flex-wrap: wrap;
     position: absolute;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
 
-    padding: 5px;
-
-    max-width: 1115px;
-    width: fit-content;
-    min-height: fit-content;
+    padding: 10px;
 
     background-color: #efefef;
     border: 2px solid #e5e5e5;
     border-radius: 3px; 
 }
 
+@media (max-width: 960px) {
+    .chats_modal {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+@media (max-width: 760px) {
+    .chats_modal {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
 .chats_modal_loading {
+    grid-column: 1/ span 3;
+    grid-column-start: 2;
     font-family: Arial, sans-serif;
+    text-align: center;
     color: #28282853;
     font-size: 3rem;
     font-style: italic;
@@ -491,11 +502,9 @@ html[data-darkreader-scheme="dark"] .checkChatsButton:hover {
 
 .operator_card {
     display: flex;
-    width: 210px;
     height: fit-content;
 
     padding: 10px;
-    margin: 5px;
 
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.125);
@@ -532,27 +541,28 @@ html[data-darkreader-scheme="dark"] .checkChatsButton:hover {
 }
 
 .operator_chats {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-gap: 5px;
+    grid-template-columns: 1fr 1fr;
     overflow-y: auto;
+    padding: 5px;
 
     justify-content: center;
 
-    max-height: 130px;
+    max-height: 140px;
 }
 
-#chat_id {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.chat_id {
 
-    width: 80px;
+    max-width: fit-content;
+
+    text-align: center;
+    text-decoration: none;
 
     border-radius: 4px;
     border: none;
 
     padding: 5px 5px;
-    margin: 2px 3px;
 
     box-shadow: 1px 1px 2px #00000069;
 
@@ -562,22 +572,28 @@ html[data-darkreader-scheme="dark"] .checkChatsButton:hover {
     transition: all 0.2s linear;
 }
 
-#chat_id:hover {
+.chat_id:last-child:not(.chat_id:nth-child(even)) {
+    grid-column: 1/3;
+    margin: 0 auto;
+}
+
+.chat_id:hover {
     background-color: #1e9f87;
+    color: #e8e6e3;
     transform: scale(1.04);
 }
 
-#chat_id:active {
+.chat_id:active {
     background-color: #fff;
     color: #17806d;
 }
+
+/* ====================== */
 
 .fancybox-content .fancybox-iframe {
     border: 2px solid #fff;
     border-radius: 10px;
 }
-
-/* ====================== */
 
 /* ======= Панель закладок ====== */
 

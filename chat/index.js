@@ -425,10 +425,9 @@ const formateData = async () => {
             let chatsHTML = '';
             for (let j = 0; j < data.length; j++) {
                 if (namesArr[i] === data[j].assignee_name) {
-                    chatsHTML += `<a href="https://secure.usedesk.ru/tickets/${data[j].ticket_id}" target="_blank">
-                        <button id=chat_id>
-                            <span>${data[j].ticket_id}</span>
-                        </button>
+                    chatsHTML += `
+                    <a class="chat_id" href="https://secure.usedesk.ru/tickets/${data[j].ticket_id}" target="_blank">
+                        <span>${data[j].ticket_id}</span>
                     </a>`;
                 }
             }
