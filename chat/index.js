@@ -417,31 +417,35 @@ const formateData = async () => {
     const names = new Set(data.map((item) => item.assignee_name));
     const namesArr = Array.from(names).sort();
 
-    let newState = '';
+    let newState = '<span class=chats_modal_loading>Нет активных чатов...</span>';
 
-    for (let i = 0; i < namesArr.length; i++) {
-        let chatsHTML = '';
-        for (let j = 0; j < data.length; j++) {
-            if (namesArr[i] === data[j].assignee_name) {
-                chatsHTML += `<a href="https://secure.usedesk.ru/tickets/${data[j].ticket_id}" target="_blank">
-                    <button id=chat_id>
-                        <span>${data[j].ticket_id}</span>
-                    </button>
-                </a>`;
+    if(namesArr.length > 0) {
+        newState = '';
+        for (let i = 0; i < namesArr.length; i++) {
+            let chatsHTML = '';
+            for (let j = 0; j < data.length; j++) {
+                if (namesArr[i] === data[j].assignee_name) {
+                    chatsHTML += `<a href="https://secure.usedesk.ru/tickets/${data[j].ticket_id}" target="_blank">
+                        <button id=chat_id>
+                            <span>${data[j].ticket_id}</span>
+                        </button>
+                    </a>`;
+                }
             }
-        }
-        const html = `
-        <div class=operator_card>
-            <div class=card_container>
-                <div class=operator_name>${namesArr[i]}</div>
-                <div class=operator_chats>${chatsHTML}</div>
+            const html = `
+            <div class=operator_card>
+                <div class=card_container>
+                    <div class=operator_name>${namesArr[i]}</div>
+                    <div class=operator_chats>${chatsHTML}</div>
+                </div>
             </div>
-        </div>
-        `;
+            `;
+    
+            newState += html;
+        }
+    } 
 
-        newState += html;
-    }
-    modal.innerHTML = newState;
+    return modal.innerHTML = newState;
 };
 
 const createCheckChatsButton = async () => {

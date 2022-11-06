@@ -6,13 +6,19 @@
 
     /*Colors*/
 
-    --client__message--light:  #333a4ad5;
+    --client__message--light:  #333a4a;
     --operator__message--light:  #bec6d8;
     --utils-and-chat-buttons--light:  #e25a77c7;
 
     --client__message--dark:  #222e3a;
     --operator__message--dark:  #3e6284;
     --utils-and-chat-buttons--dark:  #3d2746;
+
+    --my-buttons-color--light: #21a9e1;
+    --my-buttons-color--dark: #1885b2;
+    --my-buttons-color--hover: #157299;
+
+    --font-color-white-85-opacity: #ffffffd9;
 }
 
 /* Темная тема */
@@ -68,8 +74,14 @@
 
 /* Кнопки чата */
 
-.dark .chat-custom-button {
+body.dark .chat-custom-buttons-block .chat-custom-button {
     background-color: var(--utils-and-chat-buttons--dark) !important;
+}
+
+/* Вложения */
+
+.dark .message-group-item__file {
+    background-color: var(--client__message--dark) !important;
 }
 
 /* Светлая тема */
@@ -111,29 +123,33 @@
 /* -- Ссылки -- */
 
 .messages-group__messages a {
-    color: #fff !important;
+    color: var(--font-color-white-85-opacity) !important;
     font-size: var(--main-font-size);
 }
 
 .messages-group__messages a:hover {
-    color: #ffffffbf !important;
+    color: #fff !important;
     text-decoration: underline;
 }
 
 /* -- Правый сайдбар -- */
 
-#right_resize_container>div.panel.panel-primary.chat__client>div.panel-body.form-horizontal.browser-panel {
+body:not(.dark) #right_resize_container>div.panel.panel-primary.chat__client>div.panel-body.form-horizontal.browser-panel {
     background-color: var(--utils-and-chat-buttons--light);
-    color: #000;
+    color: var(--font-color-white-85-opacity);
 }
 
-.chat-custom-button {
+/* Кнопки чата */
+
+body:not(.dark) .chat-custom-buttons-block .chat-custom-button {
     background-color: var(--utils-and-chat-buttons--light) !important;
     box-shadow: rgba(0, 0, 0, 0.376) 3px 3px 6px 0px;
 }
 
-.messages-group__message.chat-message__text {
-    box-shadow: 3px 3px 6px 0px #00000060;
+/* Вложения */
+
+.mail-attachments.mail-attachments-private.message-group-item__file {
+    background-color: var(--client__message--light) !important;
 }
 
 /*  =============================================  */
@@ -149,7 +165,7 @@
 }
 
 .has-switch {
-    border-color: rgb(255 255 255 / 18%) !important;
+    border-color: #7e7e7e4a !important;
 }
 
 div.chat-body div.last-message {
@@ -171,6 +187,13 @@ div.chat-body div.last-message {
 
 .chat-custom-buttons-block a:hover {
     color: #ffffffd0 !important;
+}
+
+.messages-group__message.chat-message__text {
+    box-shadow: 3px 3px 6px 0px #00000060;
+}
+html[data-darkreader-scheme="dark"] .messages-group__message.chat-message__text {
+    box-shadow: none;
 }
 
 .right-buttons,
@@ -267,14 +290,21 @@ h3.client-h3 {
 /* --------------Кнопка "В ожидании"-------------- */
 
 .btn.btn-green--await {
-    background-color: #3e6284;
+    background-color: var(--my-buttons-color--light);
     color: #e8e6e3;
     margin: 5px 6px;
     padding: 7px 12px;
 }
 
+html[data-darkreader-scheme="dark"] .btn.btn-green--await {
+    background-color: var(--my-buttons-color--dark);
+}
+html[data-darkreader-scheme="dark"] .btn.btn-green--await:hover {
+    background-color: var(--my-buttons-color--hover);
+}
+
 .btn.btn-green--await:hover {
-    background-color: #324f69;
+    background-color: var(--my-buttons-color--hover);
     color: #e8e6e3 !important;
 }
 
@@ -378,11 +408,11 @@ h3.client-h3 {
     display: block;
     white-space: nowrap;
 
-    border: 1px solid #1885b2;
+    border: 1px solid var(--my-buttons-color--light);
     border-radius: 3px;
 
-    color: #e8e6e3;
-    background-color: #1885b2;
+    color: #fff;
+    background-color: var(--my-buttons-color--light);
 
     font-size: var(--buttons);
     font-weight: 400;
@@ -392,16 +422,22 @@ h3.client-h3 {
     padding: 5px 5% 5px 5%;
     margin: 0 auto;
     margin-top: 10px;
-
-    transition: all 0.3s ease;
+    outline: none;
 }
 
 .checkChatsButton:hover {
-    background-color: #157299;
+    background-color: var(--my-buttons-color--hover);
 }
 
-.checkChatsButton:active {
-    background-color: #1e9acf;
+html[data-darkreader-scheme="dark"] .checkChatsButton {
+    background-color: var(--my-buttons-color--dark);
+    color: #e8e6e3;
+    border-color: var(--my-buttons-color--dark);
+}
+html[data-darkreader-scheme="dark"] .checkChatsButton:hover {
+    background-color: var(--my-buttons-color--hover);
+    color: #e8e6e3;
+    border-color: var(--my-buttons-color--hover);
 }
 
 /* =============================== */
@@ -571,14 +607,10 @@ h3.client-h3 {
     min-height: 25px;
     border: none;
     text-align: center;
-    background-color: #1885b2;
+    background-color: var(--utils-and-chat-buttons--dark);
     color: #fff;
     font-size: 11px;
     line-height: 0;
-}
-
-.bookmark__panel__button:hover {
-    background-color: #15739c;
 }
 
 .bookmark__panel__button__container {
@@ -595,3 +627,65 @@ h3.client-h3 {
 }
 
 /* ============================== */
+
+
+/* Сетка сообщений */
+
+.messages-group__message.chat-message__text {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr;
+    padding: 8px 12px;
+}
+
+.mail-attachments,
+.chat-custom-buttons-block,
+.chat-form {
+    grid-column: 1/3;
+}
+
+.chat-custom-buttons-block {
+    width: 280px !important;
+    margin: 15px auto 0 auto;
+}
+
+.chat-message__name-of-responder {
+    order: 1;
+    grid-row-start: 1;
+    margin-bottom: 4px !important;
+    margin-right: 0px !important;
+    font-size: 12px;
+}
+
+.chat-message__date {
+    margin-right: 0px !important;
+}
+
+.messages-group__message.chat-message__text > div:nth-child(2):not(.chat-message__text-container):not(.chat-custom-buttons-block):not(.mail-attachments.mail-attachments-private.message-group-item__file) {
+    display: none;
+}
+
+.messages-group__message.chat-message__text:first-child(span.chat-message__text-container) {
+    background-color: #fff;
+}
+
+.chat-message__text-container {
+    order: 3;
+    grid-row-start: 2;
+    grid-column-start: 1;
+    grid-column-end: 3;
+    padding: 0px !important;
+}
+
+.messages-group__message-footer {
+    order: 2;
+    grid-row-start: 1;
+    margin-top: 0px !important;
+    float: none;
+    width: auto !important;
+    margin-left: 10px;
+}
+
+.chat-message__filesize {
+    display: none;
+}
