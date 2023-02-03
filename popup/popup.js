@@ -15,12 +15,10 @@ function checkTheme() {
     const theme = localStorage.getItem('usdk-theme');
     if(theme == 'dark') {
         switcher.checked = true;
-        console.log(switcher.checked)
-        console.log(theme)
+
     } else {
         switcher.checked = false;
-        console.log(switcher.checked)
-        console.log(theme)
+
     }
 }
 

@@ -78,10 +78,17 @@ body.dark .chat-custom-buttons-block .chat-custom-button {
     background-color: var(--utils-and-chat-buttons--dark) !important;
 }
 
-/* Вложения */
+/* Вложения (операторские) */
 
-.dark .message-group-item__file {
-    background-color: var(--client__message--dark) !important;
+.dark .message-group-item__file,
+.dark .mail-attachments.mail-attachments-private.message-group-item__file {
+    background-color: var(--operator__message--dark__message--dark) !important;
+}
+/* Вложения (клиентские) */
+
+.dark .message_group__operator > .message-group-item__file,
+.dark .message_group__operator > .mail-attachments.mail-attachments-private.message-group-item__file {
+    background-color: var(--__message--dark) !important;
 }
 
 /* Светлая тема */
@@ -173,7 +180,7 @@ div.chat-body div.last-message {
     font-size: var(--main-font-size);
 }
 
-.messages-group {
+#chat_area {
     padding: 10px 0 !important;
 }
 
@@ -221,6 +228,7 @@ html[data-darkreader-scheme="dark"] .messages-group__message.chat-message__text 
     display: flex;
     flex-direction: column;
     justify-content: center;
+    padding: 12px !important;
 }
 
 .avatar-rounded,
@@ -291,7 +299,7 @@ h3.client-h3 {
 
 .btn.btn-green--await {
     background-color: var(--my-buttons-color--light);
-    color: #e8e6e3;
+    color: #fff;
     margin: 5px 6px;
     padding: 7px 12px;
 }
@@ -305,7 +313,6 @@ html[data-darkreader-scheme="dark"] .btn.btn-green--await:hover {
 
 .btn.btn-green--await:hover {
     background-color: var(--my-buttons-color--hover);
-    color: #e8e6e3 !important;
 }
 
 /*  =============================================  */
@@ -322,31 +329,33 @@ html[data-darkreader-scheme="dark"] .btn.btn-green--await:hover {
     display: inline-block;
     white-space: nowrap;
     text-transform: uppercase;
-    background-color: transparent;
 
     border: 1px solid #737881;
+    background-color: inherit;
     border-radius: 3px;
 
     color: #737881;
     font-size: var(--signs);
     line-height: 1px;
     min-height: 20px;
-    min-width: 20px;
 
     padding-top: 1px;
-    margin: 3px 3px;
 
     transition: all 0.3s ease;
 }
 
 .timerButton_active {
-    color: #e8e6e3;
-    border-color: #1885b2;
-    background-color: #1885b2;
+    color: var(--font-color-white-85-opacity);
+    border-color: var(--my-buttons-color--dark);
+    background-color: var(--my-buttons-color--dark);
+    box-shadow: 0 0 4px 0 var(--my-buttons-color--dark);
 }
-
 .timerPanel {
     margin-top: 10px;
+    display: grid;
+    justify-content: center;
+    grid-gap: 0 4px;
+    grid-template-columns: repeat(3, minmax(35px, 37px));
 }
 
 .blur {
@@ -358,10 +367,11 @@ html[data-darkreader-scheme="dark"] .btn.btn-green--await:hover {
 .sidebar-menu {
     position: absolute !important;
     transform: translateX(-66px);
+    transition: transform 0.2s linear;
+    height: 100vh;
 }
 
 .toggle-menu {
-    position: relative !important;
     transform: translateX(0);
 }
 
@@ -385,12 +395,11 @@ html[data-darkreader-scheme="dark"] .btn.btn-green--await:hover {
     outline: none;
 }
 
-.toggle-menu > .toggleButton {
-    width: 10px;
-    right: -10px;
-}
-
 /* ===================== */
+
+#button_assign_next_chat {
+    min-width: 115px;
+}
 
 /* === Кнопка: Чаты операторов === */
 
@@ -417,7 +426,7 @@ html[data-darkreader-scheme="dark"] .btn.btn-green--await:hover {
     font-size: var(--buttons);
     font-weight: 400;
     min-height: 20px;
-    min-width: 20px;
+    min-width: 115px;
 
     padding: 5px 5% 5px 5%;
     margin: 0 auto;
@@ -593,6 +602,11 @@ html[data-darkreader-scheme="dark"] .checkChatsButton:hover {
 .fancybox-content .fancybox-iframe {
     border: 2px solid #fff;
     border-radius: 10px;
+}
+
+.fancybox-content {
+    border-radius: 10px;
+    
 }
 
 /* ======= Панель закладок ====== */

@@ -13,23 +13,65 @@
   "content_scripts" : [
     {
       "matches": ["https://secure.usedesk.ru/chat/*"], 
-      "css":["/chat/style.css"],
-      "js": ["/chat/index.js"]
+      "css":["usdsk/style.css", "usdsk/chat/style.css"],
+      "js": 
+      [
+        "utils/index.js",
+        "usdsk/bookmarks.js",
+        "usdsk/breakTimers.js",
+        "usdsk/toggleButton.js",
+        "usdsk/schedule.js",
+        "usdsk/fancybox.js",
+        "usdsk/hotkeys.js",
+        "usdsk/chat/operatorsChats.js",
+        "usdsk/chat/index.js"
+      ]
     },
     {
       "matches": ["https://secure.usedesk.ru/tickets?*"], 
-      "css":["/mail/style.css"],
-      "js": ["/mail/index.js"]
+      "css":["usdsk/style.css", "usdsk/mail/style.css"],
+      "js": 
+      [
+        "utils/index.js",
+        "usdsk/bookmarks.js",
+        "usdsk/breakTimers.js",
+        "usdsk/schedule.js",
+        "usdsk/toggleButton.js",
+        "usdsk/mail/autoRefresh.js",
+        "usdsk/mail/navbar.js",
+        "usdsk/mail/sidebar.js",
+        "usdsk/mail/index.js"
+      ]
     },
     {
       "matches": ["https://secure.usedesk.ru/tickets/*"], 
-      "css":["/ticket/style.css"],
-      "js": ["/ticket/index.js"]
+      "css":["usdsk/style.css", "usdsk/ticket/style.css"],
+      "js": 
+      [
+        "utils/index.js",
+        "usdsk/bookmarks.js",
+        "usdsk/toggleButton.js",
+        "usdsk/fancybox.js",
+        "usdsk/hotkeys.js",
+        "usdsk/ticket/index.js"
+      ]
     },
     {
       "matches": ["http://crm.spb.play.dc/users/*", "http://crm.spb.play.dc/payments/cancel"],
       "css":["/crm/style.css"],
-      "js": ["/crm/index.js"]
+      "js":
+      [
+        "utils/index.js",
+        "crm/notice.js",
+        "crm/autofillButtons.js",
+        "crm/deviceInfo.js",
+        "crm/appealChannel.js",
+        "crm/deleteButton.js",
+        "crm/infoPage.js",
+        "crm/jiraTemplateButton.js",
+        "crm/appealsPage.js",
+        "crm/index.js"
+      ]
     },
     {
       "matches": ["https://confluence.playteam.ru/*"], 

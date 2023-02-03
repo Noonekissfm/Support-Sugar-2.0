@@ -1,3 +1,13 @@
+
+:root {
+    --light-blue: #4bc1ff;
+    --dark-blue: #5171f1;
+    --light-violet: #bf3ee0;
+    --ss_notice-primary: #5aa220;
+    --ss_notice-secondary: #fff;
+    --shake-deg: 1deg;
+}
+
 .delete-button {
     display: flex;
     padding: 6px 8px 3px 9px;
@@ -23,7 +33,18 @@
     background-color: #630000;
 }
 
-.select select:active, .select select:hover {
+.delete-button:disabled {
+    border-color: #ccc;
+    color: #ccc;
+    background-color: unset;
+}
+
+.delete-button:disabled:hover {
+    background-color: unset;
+}
+
+html[data-darkreader-scheme="dark"] .select select:active, 
+html[data-darkreader-scheme="dark"] .select select:hover {
     border-color: rgba(58, 62, 65, 0.5);
     background-image: initial;
     background-color: rgb(43 47 49);
@@ -38,24 +59,39 @@
     text-transform: uppercase;
     background-color: transparent;
 
-    border: 1px solid #0079b8;
+    border: 1px solid var(--light-blue);
     border-radius: 3px;
     
-    color: #4bc1ff;
+    color: var(--light-blue);
     font-size: 12px;
     font-weight: 700;
     
     height: 25px;
     padding: 0 .4rem;
     margin: 3px 3px;
+    box-shadow: 0 0 2px 0 var(--light-blue), 0 0 2px 0 var(--light-blue) inset;
+}
+
+.my-btn--big {
+    line-height: 0;
+    font-weight: 500;
+    font-size: 12px;
+    padding: 17px 12px;
+    letter-spacing: 1.44px;
+    margin: 6px 0;
+    border-color: var(--clr-btn-default-border-color, #0072a3);
+    color: var(--clr-btn-default-color, #0072a3);
+    box-shadow: none;
 }
 .my-btn--payment {
-    border: 1px solid #bf3ee0;
-    color: #bf3ee0;
+    border: 1px solid var(--light-violet);
+    color: var(--light-violet);
+    box-shadow: 0 0 2px 0 var(--light-violet), 0 0 2px 0 var(--light-violet) inset;
 }
 .my-btn--data {
-    border: 1px solid #5171f1;
-    color: #5171f1;
+    border: 1px solid var(--dark-blue);
+    color: var(--dark-blue);
+    box-shadow: 0 0 2px 0 var(--dark-blue), 0 0 2px 0 var(--dark-blue) inset;
 }
 
 .my-btn--accident {
@@ -65,8 +101,8 @@
 }
 
 .my-btn:hover {
-    background-color: rgb(17, 48, 57);
-    color: rgb(126, 211, 255);
+    background-color: #113039;
+    color: #7ed3ff;
 }
 
 .modal-body {
@@ -106,9 +142,83 @@
     margin-right: 24px;
 }
 
-select {
+html[data-darkreader-scheme="dark"] select {
     background-color: #181a1b !important;
 }
-option {
+html[data-darkreader-scheme="dark"] option {
     background-color: #2d444f !important;
+}
+.phone--masked,
+.email--masked {
+    margin: 0 30px 0 0 !important;
+    padding: 0 !important;
+    display: inline !important;
+}
+
+table.table.table-vertical.user-table > tbody > tr:nth-child(5) > td:nth-child(2),
+table.table.table-vertical.user-table > tbody > tr:nth-child(7) > td:nth-child(2) {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.SS_notice {
+    position: absolute;
+    display: block;
+    z-index: 100500;
+    top: 20px;
+    right: 2vw;
+    padding: 10px 20px;
+
+    background-color: var(--ss_notice-primary);
+    box-shadow: 0 0 8px 2px #cccccc44;
+    border-radius: 3px;
+
+    color: var(--ss_notice-secondary);
+    font-size: 0.8rem;
+
+    animation: opacity_0 3.1s;
+}
+
+.cancelPayment_block {
+    display: flex !important;
+    gap: 1vw;
+}
+
+@keyframes opacity_0 {
+    0% {
+        opacity: 1;
+    }
+    100% {
+        opacity: 0;
+    }
+    
+}
+
+.shake {
+    animation: shake infinite 3s;
+}
+
+@keyframes shake {
+    65% {
+        transform: rotate(0deg);
+    }
+    70% {
+        transform: rotate(var(--shake-deg));
+    }
+    75% {
+        transform: rotate(calc(var(--shake-deg) * -1));
+    }
+    80% {
+        transform: rotate(var(--shake-deg));
+    }
+    85% {
+        transform: rotate(calc(var(--shake-deg) * -1));
+    }
+    90% {
+        transform: rotate(var(--shake-deg));
+    }
+    95% {
+        transform: rotate(0deg);
+    }
 }
