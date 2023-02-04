@@ -65,23 +65,28 @@ const placeMaskedContactToContactField = async (type) => {
     targetField.appendChild(el);
 }
 
-const setupForInfoPage = async () => {
-    if (state.flags.infoFlag) return
+const saveAccountIdToState = async () => {
     const accountIdField = await getElementFromCrmTable('Номер счета');
     const accountId = accountIdField.innerText;
     state.user = {
         ...state.user,
         id: accountId,
     }
-    
+}
+
+const setupForInfoPage = async () => {
+    if (state.flags.infoFlag) return
     state.flags = {
         ...state.flags,
         infoFlag: true,
     };
-    
+
     try {
-        await placeMaskedContactToContactField('phone');
-        await placeMaskedContactToContactField('email');
+        await Promise.all([
+            placeMaskedContactToContactField('phone'),
+            placeMaskedContactToContactField('email'),
+            saveAccountIdToState(),
+        ])
     } catch (error) {
         console.log(error);
     }

@@ -30,7 +30,7 @@ const getElements = async (path) => {
         const intervalId = setInterval(() => {
             if (count === 50) {
                 clearInterval(intervalId)
-                return reject(new Error('getElements timeOut...'))
+                return reject(new Error(`no elements with selector ${path}`))
             }
 
             const elements = document.querySelectorAll(path)

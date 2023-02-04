@@ -1,8 +1,8 @@
 const forceRadioButton = async () => {
+    const isAvailableInputs = await getElement('input[type="radio"]');
+    if(!isAvailableInputs) return
     const radioButtonsCollection = await getElements('input[type="radio"]');
-    if (!radioButtonsCollection) {
-        return;
-    }
+    if (!radioButtonsCollection) return
 
     try {
         for (button of radioButtonsCollection) {

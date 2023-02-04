@@ -93,22 +93,22 @@ const runSetup = async () => {
 
     if (parsedLocation.length === 4) {
         if (parsedLocation[parsedLocation.length - 1] === 'info') {
-            setupForInfoPage();
+            await setupForInfoPage();
         } else {
             state.flags.infoFlag = false;
         }
         if (parsedLocation[parsedLocation.length - 1] === 'appeals') {
-            setupForAppealsPage();
+            await setupForAppealsPage();
         } else {
             state.flags.appealsFlag = false;
         }
         if (parsedLocation[parsedLocation.length - 1] === 'devices') {
-            unlinkedDevicesDataBuilder();
+            await unlinkedDevicesDataBuilder();
         } else {
             state.flags.deviceFlag = false;
         }
         if (parsedLocation[1] === 'users' && !!Number(parsedLocation[2])) {
-            setEventOnButtons();
+            await setEventOnButtons();
         } else {
             state.flags.buttonsFlag = false;
         }
