@@ -59,77 +59,77 @@ const wrapperButtonsCreator = (parent) => {
         {
             title: 'Возвр.БК',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 6, 1, 26],
+            selector: [2, 6, 1, 5],
         },
         {
             title: 'Возвр.ЛС',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 6, 2, 26],
+            selector: [2, 6, 2, 5],
         },
         {
             title: 'Неж.Спис.Конс',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 5, 9, 26, 'Консультация по списанию'],
+            selector: [2, 5, 9, 5, 'Консультация по списанию'],
         },
         {
             title: 'Неж.Спис.Мерж',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 7, 10, 26],
+            selector: [2, 7, 10, 5],
         },
         {
             title: 'Отмена.АП',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [7, 3, 1, 26],
+            selector: [7, 3, 1, 5],
         },
         {
             title: 'Ош.Оплата БК',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [3, 1, 2, 26],
+            selector: [3, 1, 2, 5],
         },
         {
             title: 'Опл.Спасибо',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [3, 2, 2, 26],
+            selector: [3, 2, 2, 5],
         },
         {
             title: 'Изм.ПД',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 19, 3, 26],
+            selector: [1, 19, 3, 5],
         },
         {
             title: 'Откл.Уст.',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 20, 2, 26],
+            selector: [1, 20, 2, 5],
         },
         {
             title: 'Удаление',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 3, 6, 26],
+            selector: [1, 3, 6, 5],
         },
         {
             title: 'Мерж',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 2, 8, 26],
+            selector: [1, 2, 8, 5],
         },
         {
             title: 'Акции 306',
             classList: ['my-btn'],
-            selector: [5, 5, 2, 26],
+            selector: [5, 5, 2, 5],
         },
         {
             title: 'Ош.Воспр.',
             classList: ['my-btn'],
-            selector: [4, 10, 12, 26],
+            selector: [4, 10, 12, 5],
         },
         {
             title: 'Кл.Не ответил',
             classList: ['my-btn'],
-            selector: [10, 1, 1, 26],
+            selector: [10, 1, 1, 5],
         },
         {
             title: 'Пожелание',
             classList: ['my-btn'],
-            selector: [6, 6, 3, 26],
+            selector: [6, 6, 3, 5],
         },
     ];
     buttonsConfig.map((config) => createAutofillAppealButton(parent, config));
