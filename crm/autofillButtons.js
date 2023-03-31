@@ -114,12 +114,12 @@ const wrapperButtonsCreator = (parent) => {
         {
             title: 'Акции 306',
             classList: ['my-btn'],
-            selector: [5, 5, 2, 5],
+            selector: [4, 5, 2, 5],
         },
         {
             title: 'Ош.Воспр.',
             classList: ['my-btn'],
-            selector: [4, 10, 12, 5],
+            selector: [5, 10, 12, 5],
         },
         {
             title: 'Кл.Не ответил',
@@ -130,6 +130,11 @@ const wrapperButtonsCreator = (parent) => {
             title: 'Пожелание',
             classList: ['my-btn'],
             selector: [6, 6, 3, 5],
+        },
+        {
+            title: 'Контент',
+            classList: ['my-btn'],
+            selector: [6, 1, 1, 5],
         },
     ];
     buttonsConfig.map((config) => createAutofillAppealButton(parent, config));
