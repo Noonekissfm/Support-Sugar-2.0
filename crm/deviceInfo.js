@@ -20,8 +20,36 @@ const unlinkedDevicesDataBuilder = async () => {
         button.addEventListener('click', ()=>{
             showNotice(createNotice('Устройство сохранено для СО'), 3)
             state.user.devices = [...state.user.devices, text.join('\n')]
+            state.user.devices = [...state.user.devices, '\n']
         })
     })
+
+    createSaveAllDevicesInfoButton()
+}
+
+const saveAllDevicesInfo = async () => {
+    const devices = Object.values(await getElements('.spec')).map(device => device.children[0])
+    const textBuffer = [];
+    devices.forEach(device => {
+        const paragraphArr = Object.values(device.children)
+        paragraphArr.forEach((p, index) => {
+            if(p.innerText === '') return
+            textBuffer.push(p.innerText)
+            if(index === paragraphArr.length - 1) {
+                textBuffer.push(' ')
+            }
+        })
+    })
+
+    state.user.devices = [...state.user.devices, ...textBuffer]
+    if (!!state.user.devices) {
+        showNotice(createNotice('Устройства сохранены для СО'), 3)
+    }
+}
+
+const createSaveAllDevicesInfoButton = async () => {
+    const targetButton = Object.values(await getElements('.ng-star-inserted button')).filter(button => button.innerText === 'ОТВЯЗАТЬ И РАЗЛОГИНИТЬ ВСЕ')
+    targetButton[0].addEventListener('click', saveAllDevicesInfo)
 }
 
 const unlinkedDevicesButton = () => {
@@ -31,8 +59,12 @@ const unlinkedDevicesButton = () => {
     button.addEventListener('click', (e)=>{
         e.preventDefault();
         const descriptionArea = document.querySelector("#issue_description_0")
-        state.user.devices.forEach(item => descriptionArea.value += `\n${item}\n`)
+        state.user.devices.forEach(item => {
+            if(item === ' ') return descriptionArea.value += '\n';
+            descriptionArea.value += `${item}\n`;
+        })
         dispatchEvent('change', descriptionArea)
+        console.log(state.user.devices)
     })
     place.append(button)
 }

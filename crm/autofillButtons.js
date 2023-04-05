@@ -7,6 +7,22 @@ const setOption = async (selectorPath, selector) => {
     }
 };
 
+const getSelectorPathForDebug = () => {
+    const category = document.querySelector('#issue_category_0')
+    const reason = document.querySelector('#issue_root_cause_reason_0')
+    const actions = document.querySelector('#issue_actions_0')
+    const platform = document.querySelector('#issue_platform_0')
+    
+    const pathArray = [
+        category.selectedIndex,
+        reason.selectedIndex,
+        actions.selectedIndex,
+        platform.selectedIndex,
+    ]
+
+    return console.log(pathArray)
+}
+
 const setDescription = async (selectorPath, description) => {
     try {
         const el = await getElement(selectorPath);
@@ -27,14 +43,13 @@ const delay = (ms) =>
         }, ms);
     });
 
-const fillAppeal = async (selectors) => {
+const fillAppeal = async (selectors, tag) => {
     try {
+        tag? await setOption('#issue_tags_0', tag) : undefined; // tag..
         await setOption('#issue_category_0', selectors[0]); // category..
-        await delay(100);
         await setOption('#issue_root_cause_reason_0', selectors[1]); // reason..
-        await delay(100);
         await setOption('#issue_actions_0', selectors[2]); // actions..
-        await setOption('#issue_platform_0', selectors[3]); // platform..
+        // await setOption('#issue_platform_0', selectors[3]); // platform..
         if (selectors[4]) {
             await setDescription('#issue_description_0', selectors[4]); // description..
         }
@@ -48,7 +63,8 @@ const createAutofillAppealButton = (parent, object) => {
 
     btn.addEventListener('click', (e) => {
         e.preventDefault();
-        fillAppeal(object.selector);
+        fillAppeal(object.selector, object.tag);
+        // getSelectorPathForDebug();
     });
 
     parent.appendChild(btn);
@@ -59,82 +75,89 @@ const wrapperButtonsCreator = (parent) => {
         {
             title: 'Возвр.БК',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 6, 1, 5],
+            selector: [1, 1, 4, 0],
         },
         {
             title: 'Возвр.ЛС',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 6, 2, 5],
+            selector: [1, 1, 7, 0],
         },
         {
             title: 'Неж.Спис.Конс',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 5, 9, 5, 'Консультация по списанию'],
+            selector: [1, 1, 1, 0],
         },
         {
             title: 'Неж.Спис.Мерж',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [2, 7, 10, 5],
+            selector: [1, 1, 3, 0],
         },
         {
             title: 'Отмена.АП',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [7, 3, 1, 5],
+            selector: [4, 1, 1, 0],
         },
         {
             title: 'Ош.Оплата БК',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [3, 1, 2, 5],
+            selector: [10, 2, 1, 0],
         },
         {
             title: 'Опл.Спасибо',
             classList: ['my-btn', 'my-btn--payment'],
-            selector: [3, 2, 2, 5],
+            selector: [10, 4, 1, 0],
+            tag: 1,
         },
         {
             title: 'Изм.ПД',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 19, 3, 5],
+            selector: [2, 1, 1, 0],
         },
         {
             title: 'Откл.Уст.',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 20, 2, 5],
+            selector: [2, 12, 1, 0],
         },
         {
             title: 'Удаление',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 3, 6, 5],
+            selector: [2, 14, 3, 0],
         },
         {
-            title: 'Мерж',
+            title: 'Мерж(Креды)',
             classList: ['my-btn', 'my-btn--data'],
-            selector: [1, 2, 8, 5],
+            selector: [2, 3, 4, 0],
         },
         {
-            title: 'Акции 306',
+            title: 'Мерж(DID)',
+            classList: ['my-btn', 'my-btn--data'],
+            selector: [2, 4, 4, 0],
+        },
+        {
+            title: 'Акции',
             classList: ['my-btn'],
-            selector: [4, 5, 2, 5],
+            selector: [6, 2, 1, 0],
         },
         {
             title: 'Ош.Воспр.',
             classList: ['my-btn'],
-            selector: [5, 10, 12, 5],
+            selector: [7, 1, 1, 0],
         },
         {
             title: 'Кл.Не ответил',
             classList: ['my-btn'],
-            selector: [10, 1, 1, 5],
+            selector: [13, 7, 1, 0],
         },
         {
-            title: 'Пожелание',
+            title: 'Пожелание по контенту',
             classList: ['my-btn'],
-            selector: [6, 6, 3, 5],
+            selector: [12, 1, 2, 0],
+            tag: 2,
         },
         {
-            title: 'Контент',
+            title: 'Контент вышел',
             classList: ['my-btn'],
-            selector: [6, 1, 1, 5],
+            selector: [12, 2, 1, 0],
         },
     ];
     buttonsConfig.map((config) => createAutofillAppealButton(parent, config));
