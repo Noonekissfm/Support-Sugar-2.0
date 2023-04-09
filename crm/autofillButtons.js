@@ -44,13 +44,13 @@ const delay = (ms) =>
     });
 
 const fillAppeal = async (selectors, tag) => {
-    const DELAY_MS = 100;
+    const DELAY_MS = 50;
     try {
         tag? await setOption('#issue_tags_0', tag) : undefined; // tag..
         await setOption('#issue_category_0', selectors[0]); // category..
-        delay(DELAY_MS)
+        await delay(DELAY_MS)
         await setOption('#issue_root_cause_reason_0', selectors[1]); // reason..
-        delay(DELAY_MS)
+        await delay(DELAY_MS)
         await setOption('#issue_actions_0', selectors[2]); // actions..
         // await setOption('#issue_platform_0', selectors[3]); // platform..
         if (selectors[4]) {
